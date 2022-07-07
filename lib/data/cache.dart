@@ -1,18 +1,41 @@
-import 'package:get_storage/get_storage.dart';
-import 'package:weather_flutter/domain/util/constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_weather/domain/util/constant.dart';
 
 class Cache {
-  dynamic read(String pref) {
-    return GetStorage().read(pref);
+  static Future<dynamic> write(String key, dynamic value) async {
+    final _pref = await SharedPreferences.getInstance();
+
+    if (value is int) {
+      _pref.setInt(key, value);
+    } else if (value is double) {
+      _pref.setDouble(key, value);
+    } else if (value is bool) {
+      _pref.setBool(key, value);
+    } else if (value is List) {
+      _pref.setStringList(key, value.map((e) => '$e').toList());
+    } else {
+      _pref.setString(key, '$value');
+    }
+
+    return value;
   }
 
-  dynamic write(String pref, dynamic value) {
-    final newVal = value.toUpperCase().trim();
-    GetStorage().write(pref, newVal);
-    return newVal;
+  static Future<dynamic>? read(String key) async {
+    final _pref = await SharedPreferences.getInstance();
+    return _pref.get(key);
   }
 
-  bool isLoggedIn() {
-    return read(prefName) != null;
+  static Future<void> remove(String key) async {
+    final _pref = await SharedPreferences.getInstance();
+    _pref.remove(key);
+  }
+
+  static Future<void> clear() async {
+    final _pref = await SharedPreferences.getInstance();
+    _pref.clear();
+  }
+
+  static Future<bool> isLoggedIn() async {
+    return await read(prefName) != null;
   }
 }

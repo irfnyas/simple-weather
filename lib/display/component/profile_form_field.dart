@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ProfileField extends StatelessWidget {
-  const ProfileField(
+class ProfileFormField extends StatelessWidget {
+  const ProfileFormField(
       {Key? key,
       required this.controller,
       required this.node,

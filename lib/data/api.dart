@@ -1,16 +1,29 @@
-import 'package:get/get.dart';
-import 'package:weather_flutter/domain/util/api_middleware.dart';
-import 'package:weather_flutter/domain/util/constant.dart';
-import 'package:weather_flutter/domain/util/secret.dart';
+import 'package:http/http.dart';
+import 'package:simple_weather/domain/util/api_middleware.dart';
+import 'package:simple_weather/domain/util/constant.dart';
+import 'package:simple_weather/domain/util/secret.dart';
 
-class Api extends GetConnect {
-  Future<Response?> getProvinces() =>
-      ApiMiddleware().gets('$wilayahUrl/provinces.json', null);
+class Api {
+  static Future<Response?> getr(
+      String url, Map<String, String>? queries) async {
+    Response? res;
+    try {
+      res = ApiMiddleware.check(
+          await get(Uri.parse(url).replace(queryParameters: queries)));
+    } catch (e) {
+      ApiMiddleware.error(e);
+    }
 
-  Future<Response?> getCities(String provinceId) =>
-      ApiMiddleware().gets('$wilayahUrl/regencies/$provinceId.json', null);
+    return res;
+  }
 
-  Future<Response?> getForecast(String lat, String lng) => ApiMiddleware().gets(
+  static Future<Response?> getProvinces() =>
+      getr('$wilayahUrl/provinces.json', null);
+
+  static Future<Response?> getCities(String provinceId) =>
+      getr('$wilayahUrl/regencies/$provinceId.json', null);
+
+  static Future<Response?> getForecast(String lat, String lng) => getr(
       openWeatherUrl,
       {'appid': openWeatherKey, 'lat': lat, 'lon': lng, 'units': 'metric'});
 }

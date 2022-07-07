@@ -1,4 +1,4 @@
-import 'package:weather_flutter/domain/util/constant.dart';
+import 'package:simple_weather/domain/util/constant.dart';
 
 enum Time { morning, afternoon, night }
 

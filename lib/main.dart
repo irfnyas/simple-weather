@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:weather_flutter/display/screen/today_screen.dart';
-import 'package:weather_flutter/domain/util/constant.dart';
+import 'package:simple_weather/data/cache.dart';
+import 'package:simple_weather/display/screen/profile_screen.dart';
+import 'package:simple_weather/display/screen/today_screen.dart';
+import 'package:simple_weather/domain/util/constant.dart';
+import 'package:simple_weather/domain/util/service_locator.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await GetStorage.init();
-  runApp(const MyApp());
+  initServiceLocator();
+
+  final isLoggedIn = await Cache.isLoggedIn();
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key, required this.isLoggedIn}) : super(key: key);
+  final bool isLoggedIn;
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Simple Weather',
+    return MaterialApp(
+      title: appName,
       theme: ThemeData(
           primarySwatch: Colors.orange,
           primaryColor: primaryColor,
@@ -29,9 +35,12 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.grey.shade900,
           )),
       debugShowCheckedModeBanner: false,
-      home: const TodayScreen(),
-      enableLog: true,
-      defaultTransition: Transition.fade,
+      navigatorKey: navigatorKey,
+      initialRoute: isLoggedIn ? todayRoute : profileRoute,
+      routes: {
+        todayRoute: (_) => const TodayScreen(),
+        profileRoute: (_) => const ProfileScreen()
+      },
     );
   }
 }

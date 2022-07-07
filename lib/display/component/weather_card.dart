@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_flutter/domain/model/weather_model.dart';
+import 'package:simple_weather/domain/model/weather_model.dart';
 
 class WeatherCard extends StatelessWidget {
   const WeatherCard({Key? key, required this.weather}) : super(key: key);
@@ -7,6 +7,28 @@ class WeatherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _dateWidget = Text(weather.date,
+        style: Theme.of(context)
+            .textTheme
+            .subtitle2
+            ?.copyWith(fontWeight: FontWeight.normal));
+
+    final _degreesWidget = Row(
+      children: [
+        Text('${weather.degrees}°',
+            style: Theme.of(context).textTheme.headline6),
+        Image.network(
+          weather.icon,
+          height: 32,
+        ),
+      ],
+    );
+
+    final _conditionWidget = Text(weather.condition,
+        maxLines: 1,
+        style: Theme.of(context).textTheme.caption?.copyWith(
+            color: Colors.grey.shade900, overflow: TextOverflow.ellipsis));
+
     return Card(
       elevation: 0,
       color: Colors.transparent,
@@ -16,28 +38,11 @@ class WeatherCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(weather.date,
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle2
-                      ?.copyWith(fontWeight: FontWeight.normal)),
+              _dateWidget,
               const Spacer(flex: 2),
-              Row(
-                children: [
-                  Text('${weather.degrees}°',
-                      style: Theme.of(context).textTheme.headline6),
-                  Image.network(
-                    weather.icon,
-                    height: 32,
-                  ),
-                ],
-              ),
+              _degreesWidget,
               const Spacer(),
-              Text(weather.condition,
-                  maxLines: 1,
-                  style: Theme.of(context).textTheme.caption?.copyWith(
-                      color: Colors.grey.shade900,
-                      overflow: TextOverflow.ellipsis))
+              _conditionWidget
             ]),
       ),
     );

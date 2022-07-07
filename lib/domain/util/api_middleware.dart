@@ -1,17 +1,24 @@
-import 'package:get/get.dart';
-import 'package:weather_flutter/display/component/error_dialog.dart';
-import 'package:weather_flutter/domain/util/constant.dart';
+import 'package:http/http.dart';
+import 'package:simple_weather/domain/util/constant.dart';
+import 'package:simple_weather/domain/util/dialog_manager.dart';
 
-class ApiMiddleware extends GetConnect {
-  Future<Response?> gets(String url, Map<String, String>? queries) async {
-    Response? _res = await get(url, query: queries);
-    if (_res.hasError) {
-      showErrorDialog(textTitleApiError, _res.statusText ?? '');
+class ApiMiddleware {
+  static Response? check(Response? res) {
+    switch (res?.statusCode ?? 0) {
+      case 200:
+        {
+          break;
+        }
+      default:
+        {
+          DialogManager.showMessage(textTitleApiError, res?.body);
+          break;
+        }
     }
-    return _res;
+    return res;
   }
 
-  showErrorDialog(String title, String content) {
-    Get.dialog(ErrorDialog(title: title, content: content));
+  static error(e) {
+    DialogManager.showMessage(textTitleApiError, '$e');
   }
 }
