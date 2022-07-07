@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:simple_weather/data/cache.dart';
 import 'package:simple_weather/domain/model/profile_model.dart';
 import 'package:simple_weather/domain/util/constant.dart';
+import 'package:simple_weather/domain/util/router.dart';
 
 class ProfileInteractor {
   final name = ValueNotifier('');
@@ -17,6 +18,8 @@ class ProfileInteractor {
       prov.value = await Cache.read(prefProvId) ?? '';
       city.value = await Cache.read(prefCityId) ?? '';
       cityName.value = await Cache.read(prefCityName) ?? '';
+    } else {
+      router.go(routeProfile);
     }
   }
 

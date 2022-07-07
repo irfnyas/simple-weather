@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 final primaryColor = Colors.orange.shade700;
 
+const isDev = kDebugMode;
 const appName = 'Simple Weather';
 
 const prefName = 'prefName';
@@ -14,8 +16,8 @@ const prefCityLng = 'prefCityLng';
 const wilayahUrl = 'https://ifnyas.github.io/wilayah/api';
 const openWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 
-const todayRoute = '/';
-const profileRoute = '/profile';
+const routeToday = '/';
+const routeProfile = '/profile';
 
 const textTitleApiError = 'CONNECTION ERROR';
 const textTimeMorning = 'GOOD MORNING';

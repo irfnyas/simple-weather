@@ -97,9 +97,11 @@ class FormInteractor {
 
       final _name = nameController.text.trim().toUpperCase();
       final _prov =
-          provinces.value.firstWhereOrNull((item) => item.id == provId.value);
+          provinces.value.firstWhereOrNull((item) => item.id == provId.value) ??
+              provinces.value[0];
       final _city =
-          cities.value.firstWhereOrNull((item) => item.id == cityId.value);
+          cities.value.firstWhereOrNull((item) => item.id == cityId.value) ??
+              cities.value[0];
 
       await _profile.save(ProfileModel(
         name: _name,

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:simple_weather/data/cache.dart';
-import 'package:simple_weather/display/screen/profile_screen.dart';
-import 'package:simple_weather/display/screen/today_screen.dart';
 import 'package:simple_weather/domain/util/constant.dart';
+import 'package:simple_weather/domain/util/router.dart';
 import 'package:simple_weather/domain/util/service_locator.dart';
-
-final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +18,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: appName,
       theme: ThemeData(
           primarySwatch: Colors.orange,
@@ -35,12 +32,8 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.grey.shade900,
           )),
       debugShowCheckedModeBanner: false,
-      navigatorKey: navigatorKey,
-      initialRoute: isLoggedIn ? todayRoute : profileRoute,
-      routes: {
-        todayRoute: (_) => const TodayScreen(),
-        profileRoute: (_) => const ProfileScreen()
-      },
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
     );
   }
 }

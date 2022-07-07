@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:simple_weather/display/component/profile_dropdown_field.dart';
 import 'package:simple_weather/display/component/profile_form_field.dart';
 import 'package:simple_weather/domain/interactor/form_interactor.dart';
@@ -33,11 +34,8 @@ class ProfileScreen extends StatelessWidget {
             actions: [
               TextButton(
                   child: const Text(textSave),
-                  onPressed: () async => await _form.submit()
-                      ? _profile.isLoggedIn.value
-                          ? Navigator.pop(context)
-                          : Navigator.pushReplacementNamed(context, todayRoute)
-                      : null),
+                  onPressed: () async =>
+                      await _form.submit() ? context.go(routeToday) : null),
             ],
           ),
           body: Container(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:focus_detector/focus_detector.dart';
+import 'package:go_router/go_router.dart';
 import 'package:simple_weather/display/component/weather_card.dart';
 import 'package:simple_weather/domain/interactor/profile_interactor.dart';
 import 'package:simple_weather/domain/interactor/weather_interactor.dart';
@@ -107,7 +108,7 @@ class TodayScreen extends StatelessWidget {
             ),
             actions: [
               IconButton(
-                  onPressed: () => Navigator.pushNamed(context, profileRoute),
+                  onPressed: () => context.push(routeProfile),
                   icon: const Icon(Icons.settings_outlined),
                   color: Theme.of(context).primaryColor),
             ],
