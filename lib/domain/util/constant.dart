@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 final primaryColor = Colors.orange.shade700;
 
-const isDev = kDebugMode;
+const isDev = !kReleaseMode;
 const appName = 'Simple Weather';
 
 const prefName = 'prefName';

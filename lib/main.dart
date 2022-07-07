@@ -31,7 +31,6 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.transparent,
             foregroundColor: Colors.grey.shade900,
           )),
-      debugShowCheckedModeBanner: false,
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
     );
