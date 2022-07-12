@@ -1,6 +1,6 @@
 # simple_weather
 
-Minimalist weather forecast (a flutter project)
+Minimalist weather forecast
 
 ## Getting Started
 
