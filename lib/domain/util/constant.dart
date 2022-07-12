@@ -1,9 +1,3 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
-final primaryColor = Colors.orange.shade700;
-
-const isDev = !kReleaseMode;
 const appName = 'Simple Weather';
 
 const prefName = 'prefName';
