@@ -7,9 +7,6 @@ on:
 
 jobs:
   build:
-
-jobs:
-  build:
     runs-on: ubuntu-latest
     steps:
       - uses: SpicyPizza/create-envfile@v1.3
