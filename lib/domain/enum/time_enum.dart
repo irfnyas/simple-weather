@@ -1,6 +1,6 @@
 import 'package:simple_weather/domain/util/constant.dart';
 
-enum Time { morning, afternoon, night }
+enum Time { morning, afternoon, evening, night }
 
 extension TimeExt on Time {
   String get greet {
@@ -9,6 +9,8 @@ extension TimeExt on Time {
         return textTimeMorning;
       case Time.afternoon:
         return textTimeAfternoon;
+      case Time.evening:
+        return textTimeEvening;
       case Time.night:
         return textTimeNight;
     }

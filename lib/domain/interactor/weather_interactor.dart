@@ -76,10 +76,12 @@ class WeatherInteractor {
   static String _greeting() {
     final _currentHour = DateTime.now().hour;
 
-    if (_currentHour >= 5 && _currentHour < 12) {
+    if (_currentHour >= 6 && _currentHour < 12) {
       return Time.morning.greet;
-    } else if (_currentHour >= 12 && _currentHour < 18) {
+    } else if (_currentHour >= 12 && _currentHour < 16) {
       return Time.afternoon.greet;
+    } else if (_currentHour >= 16 && _currentHour < 18) {
+      return Time.evening.greet;
     } else {
       return Time.night.greet;
     }

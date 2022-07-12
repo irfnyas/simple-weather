@@ -16,6 +16,7 @@ const routeProfile = '/profile';
 const textTitleApiError = 'CONNECTION ERROR';
 const textTimeMorning = 'GOOD MORNING';
 const textTimeAfternoon = 'GOOD AFTERNOON';
+const textTimeEvening = 'GOOD EVENING';
 const textTimeNight = 'GOOD NIGHT';
 const textExitTitle = 'Exit $appName?';
 
