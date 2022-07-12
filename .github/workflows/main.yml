@@ -1,4 +1,4 @@
-name: FLUTTER CI
+name: FLUTTER-CI
 
 on:
   push:
@@ -9,9 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: timheuer/base64-to-file@v1.0.3
+      - uses: timheuer/base64-to-file@v1.1
         with:
           fileName: ".env"
+          fileDir: "./"
           encodedString: ${{ secrets.ENV }}
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
