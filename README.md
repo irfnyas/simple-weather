@@ -1,6 +1,6 @@
 # simple_weather
 
-Minimalist weather forecast
+Minimalist weather forecast.
 
 ## Getting Started
 
