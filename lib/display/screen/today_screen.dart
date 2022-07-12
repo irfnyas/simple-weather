@@ -76,6 +76,7 @@ class TodayScreen extends StatelessWidget {
         opacity: 0.92,
         child: ListView.separated(
             scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
             primary: false,
             shrinkWrap: true,
             itemCount: 5,
@@ -119,9 +120,8 @@ class TodayScreen extends StatelessWidget {
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics()),
-              child: Container(
+              child: SizedBox(
                   height: _bodyHeight,
-                  padding: const EdgeInsets.all(16),
                   child: ValueListenableBuilder<List<WeatherModel>>(
                       valueListenable: _weather.weathers,
                       builder: (_, value, __) {
