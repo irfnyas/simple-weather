@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simple_weather/display/screen/profile_screen.dart';
 import 'package:simple_weather/display/screen/today_screen.dart';
@@ -12,5 +13,5 @@ late final router = GoRouter(
   ],
   errorBuilder: (_, __) => const TodayScreen(),
   refreshListenable: sl<ProfileInteractor>().isLoggedIn,
-  debugLogDiagnostics: isDev,
+  debugLogDiagnostics: !kReleaseMode,
 );

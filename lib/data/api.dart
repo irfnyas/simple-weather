@@ -1,7 +1,7 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 import 'package:simple_weather/domain/util/api_middleware.dart';
 import 'package:simple_weather/domain/util/constant.dart';
-import 'package:simple_weather/domain/util/secret.dart';
 
 class Api {
   static Future<Response?> getr(
@@ -23,7 +23,11 @@ class Api {
   static Future<Response?> getCities(String provinceId) =>
       getr('$wilayahUrl/regencies/$provinceId.json', null);
 
-  static Future<Response?> getForecast(String lat, String lng) => getr(
-      openWeatherUrl,
-      {'appid': openWeatherKey, 'lat': lat, 'lon': lng, 'units': 'metric'});
+  static Future<Response?> getForecast(String lat, String lng) =>
+      getr(openWeatherUrl, {
+        'appid': dotenv.get('OPEN_WEATHER_KEY', fallback: ''),
+        'lat': lat,
+        'lon': lng,
+        'units': 'metric'
+      });
 }
