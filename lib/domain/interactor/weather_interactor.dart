@@ -47,14 +47,20 @@ class WeatherInteractor {
               ? '${_item['weather'][0]['description']}'.toUpperCase()
               : '';
 
-          final _isFirstOrLast = _list.isEmpty || _item == _dataList.last;
+          final _isFirst = _list.isEmpty;
+          final _isLast = _item == _dataList.last;
           final _isMidDay =
               _list.isNotEmpty && _date != _list[0].date && _hour == 12;
 
-          if (_isFirstOrLast || _isMidDay) {
+          if (_isFirst || _isLast || _isMidDay) {
+            final _isSameDayAsBefore =
+                !_isFirst ? _date == _list[_list.length - 1].date : false;
+            final _dateText =
+                _isLast && _isSameDayAsBefore ? '$_date ($_hour:00)' : _date;
+
             final _model = WeatherModel(
               condition: _condition,
-              date: _date,
+              date: _dateText,
               degrees: _degrees,
               icon: 'http://openweathermap.org/img/wn/$_icon.png',
             );
