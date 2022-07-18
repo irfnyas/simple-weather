@@ -3,7 +3,7 @@ name: FLUTTER-CI
 on:
   push:
     branches:
-      - dev-ci
+      - master
 
 jobs:
   analyze:
