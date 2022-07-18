@@ -65,24 +65,21 @@ class TodayScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.overline);
         });
 
-    final nextDayWidget = Expanded(
-        child: Opacity(
-            opacity: 0.92,
-            child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                primary: false,
-                shrinkWrap: true,
-                itemCount: 5,
-                physics: const BouncingScrollPhysics(),
-                separatorBuilder: (_, __) => const SizedBox(
-                      width: 16,
-                    ),
-                itemBuilder: (_, i) {
-                  return weather.weathers.value.isNotEmpty
-                      ? WeatherCard(weather: weather.weathers.value[i + 1])
-                      : const SizedBox();
-                })));
+    final nextDayWidget = Opacity(
+        opacity: 0.92,
+        child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+            primary: false,
+            shrinkWrap: true,
+            itemCount: 5,
+            physics: const BouncingScrollPhysics(),
+            separatorBuilder: (_, __) => const SizedBox(width: 16),
+            itemBuilder: (_, i) {
+              return weather.weathers.value.isNotEmpty
+                  ? WeatherCard(weather: weather.weathers.value[i + 1])
+                  : const SizedBox();
+            }));
 
     return WillPopScope(
         onWillPop: () async {
@@ -130,7 +127,7 @@ class TodayScreen extends StatelessWidget {
                                         degreesTextWidget,
                                         conditionTextWidget,
                                         const Spacer(flex: 2),
-                                        nextDayWidget
+                                        Expanded(child: nextDayWidget)
                                       ]));
                                 })))))));
   }
