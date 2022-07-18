@@ -7,18 +7,18 @@ class WeatherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _dateWidget = Text(weather.date,
+    final dateWidget = Text(weather.date,
         style: Theme.of(context)
             .textTheme
             .subtitle2
             ?.copyWith(fontWeight: FontWeight.normal));
 
-    final _degreesWidget = Row(children: [
+    final degreesWidget = Row(children: [
       Text('${weather.degrees}°', style: Theme.of(context).textTheme.headline6),
       Image.network(weather.icon, height: 32)
     ]);
 
-    final _conditionWidget = Text(weather.condition,
+    final conditionWidget = Text(weather.condition,
         maxLines: 1,
         style: Theme.of(context).textTheme.caption?.copyWith(
             color: Colors.grey.shade900, overflow: TextOverflow.ellipsis));
@@ -32,11 +32,11 @@ class WeatherCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _dateWidget,
+                  dateWidget,
                   const Spacer(flex: 2),
-                  _degreesWidget,
+                  degreesWidget,
                   const Spacer(),
-                  _conditionWidget
+                  conditionWidget
                 ])));
   }
 }

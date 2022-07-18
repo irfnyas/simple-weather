@@ -35,24 +35,23 @@ class FormInteractor {
   }
 
   Future<void> getProvincesData() async {
-    final _list = <ProvinceModel>[];
+    final list = <ProvinceModel>[];
 
-    var _res = await Api.getProvinces();
-    if (_res?.statusCode == 200) {
-      final data = jsonDecode(_res?.body ?? '');
+    var res = await Api.getProvinces();
+    if (res?.statusCode == 200) {
+      final data = jsonDecode(res?.body ?? '');
       for (var json in data) {
         final model = ProvinceModel.fromJson(json);
-        _list.add(model);
+        list.add(model);
       }
     }
 
-    if (_list.isNotEmpty && provId.value.isNotEmpty) {
-      final _selected =
-          _list.firstWhereOrNull((item) => item.id == provId.value);
-      setProvince(_selected);
+    if (list.isNotEmpty && provId.value.isNotEmpty) {
+      final selected = list.firstWhereOrNull((item) => item.id == provId.value);
+      setProvince(selected);
     }
 
-    provinces.value = _list;
+    provinces.value = list;
   }
 
   void setProvince(ProvinceModel? item) {
@@ -62,24 +61,23 @@ class FormInteractor {
   }
 
   Future<void> getCitiesData(String provId) async {
-    final _list = <CityModel>[];
+    final list = <CityModel>[];
 
-    var _res = await Api.getCities(provId);
-    if (_res?.statusCode == 200) {
-      final data = jsonDecode(_res?.body ?? '');
+    var res = await Api.getCities(provId);
+    if (res?.statusCode == 200) {
+      final data = jsonDecode(res?.body ?? '');
       for (var json in data) {
         final model = CityModel.fromJson(json);
-        _list.add(model);
+        list.add(model);
       }
     }
 
-    if (_list.isNotEmpty && cityId.value.isNotEmpty) {
-      final _selected =
-          _list.firstWhereOrNull((item) => item.id == cityId.value);
-      setCity(_selected);
+    if (list.isNotEmpty && cityId.value.isNotEmpty) {
+      final selected = list.firstWhereOrNull((item) => item.id == cityId.value);
+      setCity(selected);
     }
 
-    cities.value = _list;
+    cities.value = list;
   }
 
   void setCity(CityModel? item) {
@@ -87,9 +85,9 @@ class FormInteractor {
   }
 
   Future<bool> submit() async {
-    final _isValid = key.currentState?.validate() == true;
+    final isValid = key.currentState?.validate() == true;
 
-    if (!_isValid) {
+    if (!isValid) {
       nameController.text.isEmpty == true
           ? nameNode.requestFocus()
           : nameNode.nextFocus();
@@ -97,22 +95,22 @@ class FormInteractor {
       FocusManager.instance.primaryFocus?.unfocus();
       await Future.delayed(const Duration(milliseconds: 500));
 
-      final _name = nameController.text.trim().toUpperCase();
-      final _prov =
+      final name = nameController.text.trim().toUpperCase();
+      final prov =
           provinces.value.firstWhereOrNull((item) => item.id == provId.value) ??
               provinces.value[0];
-      final _city =
+      final city =
           cities.value.firstWhereOrNull((item) => item.id == cityId.value) ??
               cities.value[0];
 
       await _profile.save(ProfileModel(
-        name: _name,
-        prov: _prov,
-        city: _city,
+        name: name,
+        prov: prov,
+        city: city,
       ));
     }
 
-    return _isValid;
+    return isValid;
   }
 
   ProvinceModel? selectedItemProvField() {

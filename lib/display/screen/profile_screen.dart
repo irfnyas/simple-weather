@@ -15,63 +15,61 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _form = sl<FormInteractor>();
-    final _profile = sl<ProfileInteractor>();
+    final form = sl<FormInteractor>();
+    final profile = sl<ProfileInteractor>();
 
-    _form.init();
+    form.init();
 
     return WillPopScope(
         onWillPop: () async {
-          if (!_profile.isLoggedIn.value) {
+          if (!profile.isLoggedIn.value) {
             DialogManager.showExit();
           }
-          return _profile.isLoggedIn.value;
+          return profile.isLoggedIn.value;
         },
         child: Scaffold(
             appBar: AppBar(
-                automaticallyImplyLeading: _profile.isLoggedIn.value,
+                automaticallyImplyLeading: profile.isLoggedIn.value,
                 actions: [
                   TextButton(
                       child: const Text(textSave),
                       onPressed: () async =>
-                          await _form.submit() ? context.go(routeToday) : null),
+                          await form.submit() ? context.go(routeToday) : null),
                 ]),
             body: Container(
                 padding: const EdgeInsets.all(16),
                 child: Form(
-                    key: _form.key,
+                    key: form.key,
                     child: Column(children: [
                       ProfileFormField(
-                          controller: _form.nameController,
-                          node: _form.nameNode,
+                          controller: form.nameController,
+                          node: form.nameNode,
                           label: textLabelName,
                           hint: textHintName),
                       ValueListenableBuilder<List<ProvinceModel>>(
-                          valueListenable: _form.provinces,
+                          valueListenable: form.provinces,
                           builder: (_, value, __) {
                             return ProfileDropdownField(
                                 list: value,
-                                node: _form.provNode,
                                 labelText: textLabelProv,
                                 errorText: textErrorEmptyProv,
                                 isLoading: value.isEmpty,
-                                selectedItem: _form.selectedItemProvField(),
+                                selectedItem: form.selectedItemProvField(),
                                 onChanged: (item) =>
-                                    _form.onChangedProvField(item));
+                                    form.onChangedProvField(item));
                           }),
                       ValueListenableBuilder<List<CityModel>>(
-                          valueListenable: _form.cities,
+                          valueListenable: form.cities,
                           builder: (_, value, __) {
                             return ProfileDropdownField(
                                 list: value,
-                                node: _form.cityNode,
                                 labelText: textLabelCity,
                                 errorText: textErrorEmptyCity,
                                 isLoading:
-                                    value.isEmpty && _form.provId.value != '',
-                                selectedItem: _form.selectedItemCityField(),
+                                    value.isEmpty && form.provId.value != '',
+                                selectedItem: form.selectedItemCityField(),
                                 onChanged: (item) =>
-                                    _form.onChangedCityField(item));
+                                    form.onChangedCityField(item));
                           })
                     ])))));
   }
