@@ -23,8 +23,7 @@ void main() {
       final formInteractor = sl<FormInteractor>();
       final weatherInteractor = sl<WeatherInteractor>();
 
-      // init finder
-
+      // init var
       const nameInput = 'master weather';
       const provInput = 'jawa barat';
       const cityInput = 'kota bandung';
