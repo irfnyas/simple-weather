@@ -14,7 +14,7 @@ class WeatherInteractor {
   final weathers = ValueNotifier(<WeatherModel>[]);
 
   void init() {
-    greeting.value = _greeting();
+    greeting.value = greetingText();
   }
 
   Future<void> getForecastData() async {
@@ -31,14 +31,13 @@ class WeatherInteractor {
         final _dataList = _data['list'];
 
         for (var _item in _dataList) {
-          int _hour =
-              _item['dt_txt'] != null ? _simpleHour(_item['dt_txt']) : 0;
+          int _hour = _item['dt_txt'] != null ? simpleHour(_item['dt_txt']) : 0;
 
           String _date =
-              _item['dt_txt'] != null ? _simpleDate(_item['dt_txt']) : '';
+              _item['dt_txt'] != null ? simpleDate(_item['dt_txt']) : '';
 
           String _degrees =
-              _rounded(_item['main'] != null ? _item['main']['temp'] ?? 0 : 0);
+              rounded(_item['main'] != null ? _item['main']['temp'] ?? 0 : 0);
 
           String _icon =
               _item['weather'] != null ? '${_item['weather'][0]['icon']}' : '';
@@ -73,7 +72,7 @@ class WeatherInteractor {
     }
   }
 
-  static String _greeting() {
+  static String greetingText() {
     final _currentHour = DateTime.now().hour;
 
     if (_currentHour >= 6 && _currentHour < 12) {
@@ -87,15 +86,15 @@ class WeatherInteractor {
     }
   }
 
-  static String _simpleDate(String date) {
+  static String simpleDate(String date) {
     return DateFormat('EEE dd').format(DateTime.parse(date)).toUpperCase();
   }
 
-  static int _simpleHour(String date) {
+  static int simpleHour(String date) {
     return int.tryParse(DateFormat('H').format(DateTime.parse(date))) ?? 0;
   }
 
-  static String _rounded(num degrees) {
+  static String rounded(num degrees) {
     return '${degrees.round()}';
   }
 }
