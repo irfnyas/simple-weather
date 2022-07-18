@@ -13,16 +13,10 @@ class WeatherCard extends StatelessWidget {
             .subtitle2
             ?.copyWith(fontWeight: FontWeight.normal));
 
-    final _degreesWidget = Row(
-      children: [
-        Text('${weather.degrees}°',
-            style: Theme.of(context).textTheme.headline6),
-        Image.network(
-          weather.icon,
-          height: 32,
-        ),
-      ],
-    );
+    final _degreesWidget = Row(children: [
+      Text('${weather.degrees}°', style: Theme.of(context).textTheme.headline6),
+      Image.network(weather.icon, height: 32)
+    ]);
 
     final _conditionWidget = Text(weather.condition,
         maxLines: 1,
@@ -30,21 +24,19 @@ class WeatherCard extends StatelessWidget {
             color: Colors.grey.shade900, overflow: TextOverflow.ellipsis));
 
     return Card(
-      elevation: 0,
-      color: Colors.transparent,
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _dateWidget,
-              const Spacer(flex: 2),
-              _degreesWidget,
-              const Spacer(),
-              _conditionWidget
-            ]),
-      ),
-    );
+        elevation: 0,
+        color: Colors.transparent,
+        child: Container(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _dateWidget,
+                  const Spacer(flex: 2),
+                  _degreesWidget,
+                  const Spacer(),
+                  _conditionWidget
+                ])));
   }
 }

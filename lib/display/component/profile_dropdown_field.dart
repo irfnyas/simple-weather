@@ -6,7 +6,6 @@ class ProfileDropdownField extends StatelessWidget {
       {Key? key,
       required this.node,
       required this.list,
-      required this.itemId,
       required this.labelText,
       required this.errorText,
       required this.isLoading,
@@ -16,7 +15,6 @@ class ProfileDropdownField extends StatelessWidget {
 
   final FocusNode node;
   final List list;
-  final String itemId;
   final String labelText;
   final String errorText;
   final bool isLoading;
@@ -26,29 +24,23 @@ class ProfileDropdownField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Column(
-        children: [
+        padding: const EdgeInsets.only(bottom: 16),
+        child: Column(children: [
           DropdownSearch<dynamic>(
-            showSearchBox: true,
-            mode: Mode.BOTTOM_SHEET,
-            enabled: list.isNotEmpty,
-            focusNode: node,
-            onChanged: onChanged,
-            items: list,
-            itemAsString: (item) => item?.name ?? '',
-            validator: (item) => item == null ? errorText : null,
-            selectedItem: selectedItem,
-            dropdownSearchDecoration:
-                InputDecoration(labelText: labelText, border: InputBorder.none),
-          ),
+              showSearchBox: true,
+              mode: Mode.BOTTOM_SHEET,
+              enabled: list.isNotEmpty,
+              focusNode: node,
+              onChanged: onChanged,
+              items: list,
+              itemAsString: (item) => item?.name ?? '',
+              validator: (item) => item == null ? errorText : null,
+              selectedItem: selectedItem,
+              dropdownSearchDecoration: InputDecoration(
+                  labelText: labelText, border: InputBorder.none)),
           Visibility(
               visible: isLoading,
-              child: const LinearProgressIndicator(
-                minHeight: 2,
-              ))
-        ],
-      ),
-    );
+              child: const LinearProgressIndicator(minHeight: 2))
+        ]));
   }
 }
