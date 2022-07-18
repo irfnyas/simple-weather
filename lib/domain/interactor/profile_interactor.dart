@@ -13,13 +13,14 @@ class ProfileInteractor {
 
   Future<void> init() async {
     isLoggedIn.value = await Cache.isLoggedIn();
-    if (isLoggedIn.value) {
+
+    if (!isLoggedIn.value) {
+      router.go(routeProfile);
+    } else {
       name.value = await Cache.read(prefName) ?? '';
       prov.value = await Cache.read(prefProvId) ?? '';
       city.value = await Cache.read(prefCityId) ?? '';
       cityName.value = await Cache.read(prefCityName) ?? '';
-    } else {
-      router.go(routeProfile);
     }
   }
 
