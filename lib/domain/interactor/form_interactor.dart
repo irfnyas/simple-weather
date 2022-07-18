@@ -90,7 +90,9 @@ class FormInteractor {
     final _isValid = key.currentState?.validate() == true;
 
     if (!_isValid) {
-      nameController.text.isEmpty == true ? nameNode.requestFocus() : null;
+      nameController.text.isEmpty == true
+          ? nameNode.requestFocus()
+          : nameNode.nextFocus();
     } else {
       FocusManager.instance.primaryFocus?.unfocus();
       await Future.delayed(const Duration(milliseconds: 500));
@@ -111,5 +113,29 @@ class FormInteractor {
     }
 
     return _isValid;
+  }
+
+  ProvinceModel? selectedItemProvField() {
+    return provinces.value.isNotEmpty
+        ? provinces.value.firstWhereOrNull((item) => item.id == provId.value)
+        : null;
+  }
+
+  void onChangedProvField(ProvinceModel? item) {
+    if (item != null) setProvince(item);
+  }
+
+  CityModel? selectedItemCityField() {
+    if (cities.value.isNotEmpty) {
+      return cityId.value != ''
+          ? cities.value.firstWhereOrNull((item) => item.id == cityId.value) ??
+              cities.value[0]
+          : cities.value[0];
+    }
+    return null;
+  }
+
+  void onChangedCityField(CityModel? item) {
+    if (item != null) setCity(item);
   }
 }
