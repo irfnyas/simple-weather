@@ -14,24 +14,24 @@ class TodayScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _profile = sl<ProfileInteractor>();
-    final _weather = sl<WeatherInteractor>();
+    final profile = sl<ProfileInteractor>();
+    final weather = sl<WeatherInteractor>();
 
-    _profile.init();
-    _weather.init();
+    profile.init();
+    weather.init();
 
-    final _bodyHeight = MediaQuery.of(context).size.height -
+    final bodyHeight = MediaQuery.of(context).size.height -
         MediaQuery.of(context).padding.top -
         kToolbarHeight;
 
-    final _greetingTextWidget = ValueListenableBuilder<String>(
-        valueListenable: _weather.greeting,
+    final greetingTextWidget = ValueListenableBuilder<String>(
+        valueListenable: weather.greeting,
         builder: (_, value, __) {
           return Text(value, style: Theme.of(context).textTheme.subtitle2);
         });
 
-    final _nameTextWidget = ValueListenableBuilder<String>(
-        valueListenable: _profile.name,
+    final nameTextWidget = ValueListenableBuilder<String>(
+        valueListenable: profile.name,
         builder: (_, value, __) {
           return Text(value,
               style: Theme.of(context)
@@ -40,13 +40,13 @@ class TodayScreen extends StatelessWidget {
                   ?.copyWith(fontWeight: FontWeight.normal));
         });
 
-    final _degreesTextWidget =
+    final degreesTextWidget =
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text('°',
           style: Theme.of(context).textTheme.headline1?.copyWith(
               fontWeight: FontWeight.normal, color: Colors.transparent)),
       ValueListenableBuilder<List<WeatherModel>>(
-          valueListenable: _weather.weathers,
+          valueListenable: weather.weathers,
           builder: (_, value, __) {
             return Text(value[0].degrees,
                 style: Theme.of(context).textTheme.headline1?.copyWith(
@@ -58,31 +58,28 @@ class TodayScreen extends StatelessWidget {
               fontWeight: FontWeight.normal, color: Colors.grey.shade900))
     ]);
 
-    final _conditionTextWidget = ValueListenableBuilder<List<WeatherModel>>(
-        valueListenable: _weather.weathers,
+    final conditionTextWidget = ValueListenableBuilder<List<WeatherModel>>(
+        valueListenable: weather.weathers,
         builder: (_, value, __) {
           return Text(value[0].condition,
               style: Theme.of(context).textTheme.overline);
         });
 
-    final _nextDayWidget = Expanded(
-        child: Opacity(
-            opacity: 0.92,
-            child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                primary: false,
-                shrinkWrap: true,
-                itemCount: 5,
-                physics: const BouncingScrollPhysics(),
-                separatorBuilder: (_, __) => const SizedBox(
-                      width: 16,
-                    ),
-                itemBuilder: (_, i) {
-                  return _weather.weathers.value.isNotEmpty
-                      ? WeatherCard(weather: _weather.weathers.value[i + 1])
-                      : const SizedBox();
-                })));
+    final nextDayWidget = Opacity(
+        opacity: 0.92,
+        child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+            primary: false,
+            shrinkWrap: true,
+            itemCount: 5,
+            physics: const BouncingScrollPhysics(),
+            separatorBuilder: (_, __) => const SizedBox(width: 16),
+            itemBuilder: (_, i) {
+              return weather.weathers.value.isNotEmpty
+                  ? WeatherCard(weather: weather.weathers.value[i + 1])
+                  : const SizedBox();
+            }));
 
     return WillPopScope(
         onWillPop: () async {
@@ -91,11 +88,11 @@ class TodayScreen extends StatelessWidget {
         },
         child: FocusDetector(
             onFocusGained: () =>
-                _weather.refreshIndicatorKey.currentState?.show(),
+                weather.refreshIndicatorKey.currentState?.show(),
             child: Scaffold(
                 appBar: AppBar(
                   title: ValueListenableBuilder<String>(
-                    valueListenable: _profile.cityName,
+                    valueListenable: profile.cityName,
                     builder: (_, value, __) {
                       return Text(value,
                           style: Theme.of(context).textTheme.overline);
@@ -109,28 +106,28 @@ class TodayScreen extends StatelessWidget {
                   ],
                 ),
                 body: RefreshIndicator(
-                    key: _weather.refreshIndicatorKey,
-                    onRefresh: () async => _weather.getForecastData(),
+                    key: weather.refreshIndicatorKey,
+                    onRefresh: () async => weather.getForecastData(),
                     child: SingleChildScrollView(
                         physics: const BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics()),
                         child: SizedBox(
-                            height: _bodyHeight,
+                            height: bodyHeight,
                             child: ValueListenableBuilder<List<WeatherModel>>(
-                                valueListenable: _weather.weathers,
+                                valueListenable: weather.weathers,
                                 builder: (_, value, __) {
                                   return Visibility(
                                       visible: value.isNotEmpty,
                                       replacement: const SizedBox.expand(),
                                       child: Column(children: [
-                                        _greetingTextWidget,
+                                        greetingTextWidget,
                                         const SizedBox(height: 4),
-                                        _nameTextWidget,
+                                        nameTextWidget,
                                         const Spacer(),
-                                        _degreesTextWidget,
-                                        _conditionTextWidget,
+                                        degreesTextWidget,
+                                        conditionTextWidget,
                                         const Spacer(flex: 2),
-                                        _nextDayWidget
+                                        Expanded(child: nextDayWidget)
                                       ]));
                                 })))))));
   }

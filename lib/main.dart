@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
                 centerTitle: true,
                 backgroundColor: Colors.transparent,
                 foregroundColor: Colors.grey.shade900)),
+        routeInformationProvider: router.routeInformationProvider,
         routeInformationParser: router.routeInformationParser,
         routerDelegate: router.routerDelegate);
   }

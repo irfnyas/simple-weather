@@ -5,57 +5,57 @@ import 'package:simple_weather/display/component/profile_form_field.dart';
 void main() {
   group('profile form field test', () {
     testWidgets('has focus if value is empty', (tester) async {
-      const _labelText = 'Label';
-      final _formKey = GlobalKey<FormState>();
-      final _focusNode = FocusNode();
-      final _fieldController = TextEditingController();
+      const labelText = 'Label';
+      final formKey = GlobalKey<FormState>();
+      final focusNode = FocusNode();
+      final fieldController = TextEditingController();
 
       await tester.pumpWidget(MaterialApp(
           home: Scaffold(
               body: Form(
-                  key: _formKey,
+                  key: formKey,
                   child: ProfileFormField(
-                      controller: _fieldController,
-                      node: _focusNode,
-                      label: _labelText)))));
+                      controller: fieldController,
+                      node: focusNode,
+                      label: labelText)))));
 
-      final _isValid = _formKey.currentState?.validate() ?? false;
-      !_isValid ? _focusNode.requestFocus() : _focusNode.unfocus();
+      final isValid = formKey.currentState?.validate() ?? false;
+      !isValid ? focusNode.requestFocus() : focusNode.unfocus();
 
       await tester.pump();
 
-      expect(true, _focusNode.hasFocus);
+      expect(true, focusNode.hasFocus);
     });
 
     testWidgets('no focus if has value', (tester) async {
-      const _labelText = 'Label';
-      final _formKey = GlobalKey<FormState>();
-      final _focusNode = FocusNode();
-      final _fieldController = TextEditingController();
-      final _field = find.byType(TextFormField);
+      const labelText = 'Label';
+      final formKey = GlobalKey<FormState>();
+      final focusNode = FocusNode();
+      final fieldController = TextEditingController();
+      final field = find.byType(TextFormField);
 
       await tester.pumpWidget(MaterialApp(
           home: Scaffold(
               body: Form(
-                  key: _formKey,
+                  key: formKey,
                   child: ProfileFormField(
-                      controller: _fieldController,
-                      node: _focusNode,
-                      label: _labelText)))));
+                      controller: fieldController,
+                      node: focusNode,
+                      label: labelText)))));
 
-      await tester.enterText(_field, 'weather');
+      await tester.enterText(field, 'weather');
       await tester.pump();
 
-      final _isValid = _formKey.currentState?.validate() ?? false;
-      if (!_isValid) {
-        _focusNode.requestFocus();
+      final isValid = formKey.currentState?.validate() ?? false;
+      if (!isValid) {
+        focusNode.requestFocus();
       } else {
-        _focusNode.unfocus();
+        focusNode.unfocus();
       }
 
       await tester.pump();
 
-      expect(false, _focusNode.hasFocus);
+      expect(false, focusNode.hasFocus);
     });
   });
 }

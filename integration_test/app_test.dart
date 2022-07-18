@@ -20,73 +20,73 @@ void main() {
       await app.main();
 
       // init interactor
-      final _formInteractor = sl<FormInteractor>();
-      final _weatherInteractor = sl<WeatherInteractor>();
+      final formInteractor = sl<FormInteractor>();
+      final weatherInteractor = sl<WeatherInteractor>();
 
       // init finder
 
-      const _nameInput = 'master weather';
-      const _provInput = 'jawa barat';
-      const _cityInput = 'kota bandung';
+      const nameInput = 'master weather';
+      const provInput = 'jawa barat';
+      const cityInput = 'kota bandung';
 
-      final _nameField = find.byType(TextFormField);
-      final _provField = find.byType(DropdownSearch).first;
-      final _cityField = find.byType(DropdownSearch).last;
-      final _resProvTile = find.text(_provInput.toUpperCase());
-      final _resCityTile = find.text(_cityInput.toUpperCase());
+      final nameField = find.byType(TextFormField);
+      final provField = find.byType(DropdownSearch).first;
+      final cityField = find.byType(DropdownSearch).last;
+      final resProvTile = find.text(provInput.toUpperCase());
+      final resCityTile = find.text(cityInput.toUpperCase());
 
-      final _errorEmptyProvField = find.text(textErrorEmptyProv);
-      final _searchField = find.byType(TextField).last;
-      final _listView = find.byType(ListView);
-      final _saveBtn = find.text(textSave);
+      final errorEmptyProvField = find.text(textErrorEmptyProv);
+      final searchField = find.byType(TextField).last;
+      final listView = find.byType(ListView);
+      final saveBtn = find.text(textSave);
 
       // click save btn
       await tester.pumpAndSettle();
-      await tester.tap(_saveBtn);
+      await tester.tap(saveBtn);
       await tester.pumpAndSettle();
-      expect(_formInteractor.nameNode.hasFocus, true);
-      expect(_errorEmptyProvField, findsOneWidget);
+      expect(formInteractor.nameNode.hasFocus, true);
+      expect(errorEmptyProvField, findsOneWidget);
 
       // set name field and click save btn
-      await tester.enterText(_nameField, _nameInput);
+      await tester.enterText(nameField, nameInput);
       await tester.pumpAndSettle();
-      await tester.tap(_saveBtn);
+      await tester.tap(saveBtn);
       await tester.pumpAndSettle();
-      expect(_formInteractor.nameNode.hasFocus, false);
+      expect(formInteractor.nameNode.hasFocus, false);
 
       // set prov field, search 'JAWA BARAT' and click the result tile
-      await tester.tap(_provField);
+      await tester.tap(provField);
       await tester.pumpAndSettle();
-      await tester.enterText(_searchField, _provInput);
+      await tester.enterText(searchField, provInput);
       await tester.pumpAndSettle();
-      await tester.tap(_resProvTile);
+      await tester.tap(resProvTile);
       await tester.pumpAndSettle();
-      expect(find.text(_provInput.toUpperCase()), findsOneWidget);
+      expect(find.text(provInput.toUpperCase()), findsOneWidget);
 
       // set city field, drag list until 'KOTA BANDUNG' visible and click the tile
-      await tester.tap(_cityField);
+      await tester.tap(cityField);
       await tester.pumpAndSettle();
       await tester.dragUntilVisible(
-          _resCityTile, _listView, const Offset(0, -50));
+          resCityTile, listView, const Offset(0, -50));
       await tester.pumpAndSettle();
-      await tester.tap(_resCityTile);
+      await tester.tap(resCityTile);
       await tester.pumpAndSettle();
-      expect(find.text(_cityInput.toUpperCase()), findsOneWidget);
+      expect(find.text(cityInput.toUpperCase()), findsOneWidget);
 
       // click save and go to today screen
-      await tester.tap(_saveBtn);
+      await tester.tap(saveBtn);
       await tester.pumpAndSettle(const Duration(seconds: 1));
       expect(find.byIcon(Icons.settings_outlined), findsOneWidget);
 
       // ensure loading is finished
-      while (_weatherInteractor.weathers.value.isEmpty) {
+      while (weatherInteractor.weathers.value.isEmpty) {
         await tester.pumpAndSettle(const Duration(seconds: 1));
       }
 
       // today screen has greeting, city text, name text and 5 forecast weather cards
-      expect(find.text(_weatherInteractor.greeting.value), findsOneWidget);
-      expect(find.text(_cityInput.toUpperCase()), findsOneWidget);
-      expect(find.text(_nameInput.toUpperCase()), findsOneWidget);
+      expect(find.text(weatherInteractor.greeting.value), findsOneWidget);
+      expect(find.text(cityInput.toUpperCase()), findsOneWidget);
+      expect(find.text(nameInput.toUpperCase()), findsOneWidget);
       expect(find.byType(WeatherCard, skipOffstage: false), findsNWidgets(5));
     });
   });

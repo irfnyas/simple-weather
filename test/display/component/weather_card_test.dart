@@ -9,24 +9,24 @@ void main() {
   setUpAll(() => HttpOverrides.global = null);
   group('weather card test', () {
     testWidgets('has date, degrees, icon and condition', (tester) async {
-      final _weather = WeatherModel(
+      final weather = WeatherModel(
           degrees: '23',
           condition: 'Clear sky',
           date: 'TUE 2',
           icon: 'http://openweathermap.org/img/wn/01d.png');
-      final _degreesText = find.text('${_weather.degrees}°');
-      final _conditionText = find.text(_weather.condition);
-      final _dateText = find.text(_weather.date);
-      final _iconImage = find.byType(Image);
+      final degreesText = find.text('${weather.degrees}°');
+      final conditionText = find.text(weather.condition);
+      final dateText = find.text(weather.date);
+      final iconImage = find.byType(Image);
 
       await tester.pumpWidget(
-          MaterialApp(home: Scaffold(body: WeatherCard(weather: _weather))));
+          MaterialApp(home: Scaffold(body: WeatherCard(weather: weather))));
       await tester.pump();
 
-      expect(_degreesText, findsOneWidget);
-      expect(_conditionText, findsOneWidget);
-      expect(_dateText, findsOneWidget);
-      expect(_iconImage, findsOneWidget);
+      expect(degreesText, findsOneWidget);
+      expect(conditionText, findsOneWidget);
+      expect(dateText, findsOneWidget);
+      expect(iconImage, findsOneWidget);
     });
   });
 }
