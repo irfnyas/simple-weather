@@ -18,68 +18,68 @@ class WeatherInteractor {
   }
 
   Future<void> getForecastData() async {
-    final _lat = await Cache.read(prefCityLat);
-    final _lng = await Cache.read(prefCityLng);
+    final lat = await Cache.read(prefCityLat);
+    final lng = await Cache.read(prefCityLng);
 
-    if (_lat != null && _lng != null) {
-      final _list = <WeatherModel>[];
-      final _res = await Api.getForecast(_lat, _lng);
+    if (lat != null && lng != null) {
+      final list = <WeatherModel>[];
+      final res = await Api.getForecast(lat, lng);
 
-      if (_res?.statusCode == 200) {
+      if (res?.statusCode == 200) {
         weathers.value.clear();
-        final _data = jsonDecode(_res?.body ?? '');
-        final _dataList = _data['list'];
+        final data = jsonDecode(res?.body ?? '');
+        final dataList = data['list'];
 
-        for (var _item in _dataList) {
-          int _hour = _item['dt_txt'] != null ? simpleHour(_item['dt_txt']) : 0;
+        for (var item in dataList) {
+          int hour = item['dt_txt'] != null ? simpleHour(item['dt_txt']) : 0;
 
-          String _date =
-              _item['dt_txt'] != null ? simpleDate(_item['dt_txt']) : '';
+          String date =
+              item['dt_txt'] != null ? simpleDate(item['dt_txt']) : '';
 
-          String _degrees =
-              rounded(_item['main'] != null ? _item['main']['temp'] ?? 0 : 0);
+          String degrees =
+              rounded(item['main'] != null ? item['main']['temp'] ?? 0 : 0);
 
-          String _icon =
-              _item['weather'] != null ? '${_item['weather'][0]['icon']}' : '';
+          String icon =
+              item['weather'] != null ? '${item['weather'][0]['icon']}' : '';
 
-          String _condition = _item['weather'] != null
-              ? '${_item['weather'][0]['description']}'.toUpperCase()
+          String condition = item['weather'] != null
+              ? '${item['weather'][0]['description']}'.toUpperCase()
               : '';
 
-          final _isFirst = _list.isEmpty;
-          final _isLast = _item == _dataList.last;
-          final _isMidDay =
-              _list.isNotEmpty && _date != _list[0].date && _hour == 12;
+          final isFirst = list.isEmpty;
+          final isLast = item == dataList.last;
+          final isMidDay =
+              list.isNotEmpty && date != list[0].date && hour == 12;
 
-          if (_isFirst || _isLast || _isMidDay) {
-            final _isSameDayAsBefore =
-                !_isFirst ? _date == _list[_list.length - 1].date : false;
-            final _dateText =
-                _isLast && _isSameDayAsBefore ? '$_date ($_hour:00)' : _date;
+          if (isFirst || isLast || isMidDay) {
+            final isSameDayAsBefore =
+                !isFirst ? date == list[list.length - 1].date : false;
+            final dateText =
+                isLast && isSameDayAsBefore ? '$date ($hour:00)' : date;
 
-            final _model = WeatherModel(
-              condition: _condition,
-              date: _dateText,
-              degrees: _degrees,
-              icon: 'http://openweathermap.org/img/wn/$_icon.png',
+            final model = WeatherModel(
+              condition: condition,
+              date: dateText,
+              degrees: degrees,
+              icon: 'http://openweathermap.org/img/wn/$icon.png',
             );
-            _list.add(_model);
+            list.add(model);
           }
         }
       }
 
-      weathers.value = _list;
+      weathers.value = list;
     }
   }
 
   static String greetingText() {
-    final _currentHour = DateTime.now().hour;
+    final currentHour = DateTime.now().hour;
 
-    if (_currentHour >= 6 && _currentHour < 12) {
+    if (currentHour >= 6 && currentHour < 12) {
       return Time.morning.greet;
-    } else if (_currentHour >= 12 && _currentHour < 16) {
+    } else if (currentHour >= 12 && currentHour < 16) {
       return Time.afternoon.greet;
-    } else if (_currentHour >= 16 && _currentHour < 18) {
+    } else if (currentHour >= 16 && currentHour < 18) {
       return Time.evening.greet;
     } else {
       return Time.night.greet;

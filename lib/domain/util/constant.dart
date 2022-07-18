@@ -24,6 +24,7 @@ const textSave = 'SAVE';
 const textBack = 'BACK';
 const textExit = 'EXIT';
 const textOk = 'OK';
+const textSearch = 'SEARCH';
 
 const textLabelName = 'What should we call you?';
 const textHintName = 'e.g. MASTER WEATHER';
