@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:simple_weather/data/api.dart';
 import 'package:simple_weather/data/cache.dart';
 import 'package:simple_weather/domain/interactor/profile_interactor.dart';
@@ -37,8 +36,8 @@ class FormInteractor {
 
   Future<void> getProvincesData() async {
     final list = <ProvinceModel>[];
+    final res = await apiGetProvinces();
 
-    Response? res = await apiGetProvinces();
     if (res?.statusCode == 200) {
       final data = jsonDecode(res?.body ?? '');
       for (final json in data) {
@@ -63,8 +62,8 @@ class FormInteractor {
 
   Future<void> getCitiesData(String provId) async {
     final list = <CityModel>[];
+    final res = await apiGetCities(provId);
 
-    Response? res = await apiGetCities(provId);
     if (res?.statusCode == 200) {
       final data = jsonDecode(res?.body ?? '');
       for (final json in data) {
