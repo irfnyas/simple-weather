@@ -30,7 +30,7 @@ class WeatherInteractor {
         final data = jsonDecode(res?.body ?? '');
         final dataList = data['list'];
 
-        for (var item in dataList) {
+        for (final item in dataList) {
           int hour = item['dt_txt'] != null ? simpleHour(item['dt_txt']) : 0;
 
           String date =
