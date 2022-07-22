@@ -6,8 +6,8 @@ import 'package:simple_weather/domain/util/service_locator.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  initServiceLocator();
   await dotenv.load(fileName: ".env");
+  await initServiceLocator();
 
   runApp(const MyApp());
 }

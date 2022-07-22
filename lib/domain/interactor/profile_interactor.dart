@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:simple_weather/data/cache.dart';
 import 'package:simple_weather/domain/model/profile_model.dart';
 import 'package:simple_weather/domain/util/constant.dart';
-import 'package:simple_weather/domain/util/router.dart';
 
 class ProfileInteractor {
   final name = ValueNotifier('');
@@ -12,19 +11,16 @@ class ProfileInteractor {
   final isLoggedIn = ValueNotifier(false);
 
   Future<void> init() async {
+    name.value = await cacheRead(cacheName) ?? '';
+    prov.value = await cacheRead(cacheProvId) ?? '';
+    city.value = await cacheRead(cacheCityId) ?? '';
+    cityName.value = await cacheRead(cacheCityName) ?? '';
     isLoggedIn.value = await cacheIsLoggedIn();
-
-    if (!isLoggedIn.value) {
-      router.go(routeProfile);
-    } else {
-      name.value = await cacheRead(cacheName) ?? '';
-      prov.value = await cacheRead(cacheProvId) ?? '';
-      city.value = await cacheRead(cacheCityId) ?? '';
-      cityName.value = await cacheRead(cacheCityName) ?? '';
-    }
   }
 
   Future<void> save(ProfileModel profile) async {
+    isLoggedIn.value = true;
+
     name.value = profile.name.isNotEmpty
         ? await cacheWrite(cacheName, profile.name)
         : name.value;

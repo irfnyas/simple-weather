@@ -4,8 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:simple_weather/data/cache.dart';
 import 'package:simple_weather/display/component/weather_card.dart';
-import 'package:simple_weather/domain/interactor/form_interactor.dart';
-import 'package:simple_weather/domain/interactor/weather_interactor.dart';
 import 'package:simple_weather/domain/util/constant.dart';
 import 'package:simple_weather/domain/util/service_locator.dart';
 import 'package:simple_weather/main.dart' as app;
@@ -13,15 +11,11 @@ import 'package:simple_weather/main.dart' as app;
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('end-to-end test', () {
+  group('end-to-end test android', () {
     testWidgets('first time using app', (tester) async {
       // init main
       await cacheClear();
       await app.main();
-
-      // init interactor
-      final formInteractor = sl<FormInteractor>();
-      final weatherInteractor = sl<WeatherInteractor>();
 
       // init var
       const nameInput = 'master weather';
@@ -43,7 +37,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(saveBtn);
       await tester.pumpAndSettle();
-      expect(formInteractor.nameNode.hasFocus, true);
+      expect(form.nameNode.hasFocus, true);
       expect(errorEmptyProvField, findsOneWidget);
 
       // set name field and click save btn
@@ -51,7 +45,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.tap(saveBtn);
       await tester.pumpAndSettle();
-      expect(formInteractor.nameNode.hasFocus, false);
+      expect(form.nameNode.hasFocus, false);
 
       // set prov field, search 'JAWA BARAT' and click the result tile
       await tester.tap(provField);
@@ -78,12 +72,12 @@ void main() {
       expect(find.byIcon(Icons.settings_outlined), findsOneWidget);
 
       // ensure loading is finished
-      while (weatherInteractor.weathers.value.isEmpty) {
+      while (weather.weathers.value.isEmpty) {
         await tester.pumpAndSettle(const Duration(seconds: 1));
       }
 
       // today screen has greeting, city text, name text and 5 forecast weather cards
-      expect(find.text(weatherInteractor.greeting.value), findsOneWidget);
+      expect(find.text(weather.greeting.value), findsOneWidget);
       expect(find.text(cityInput.toUpperCase()), findsOneWidget);
       expect(find.text(nameInput.toUpperCase()), findsOneWidget);
       expect(find.byType(WeatherCard, skipOffstage: false), findsNWidgets(5));

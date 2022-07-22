@@ -11,7 +11,7 @@ const urlWilayah = 'https://ifnyas.github.io/wilayah/api';
 const urlOpenWeather = 'https://api.openweathermap.org/data/2.5/forecast';
 
 const routeToday = '/';
-const routeProfile = '/profile';
+const routeSettings = '/settings';
 
 const textTitleApiError = 'CONNECTION ERROR';
 const textTimeMorning = 'GOOD MORNING';

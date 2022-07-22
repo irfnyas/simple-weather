@@ -15,6 +15,7 @@ class WeatherInteractor {
 
   void init() {
     greeting.value = greetingText();
+    getForecastData();
   }
 
   Future<void> getForecastData() async {

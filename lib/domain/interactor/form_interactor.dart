@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:simple_weather/data/api.dart';
 import 'package:simple_weather/data/cache.dart';
-import 'package:simple_weather/domain/interactor/profile_interactor.dart';
 import 'package:simple_weather/domain/model/city_model.dart';
 import 'package:simple_weather/domain/model/profile_model.dart';
 import 'package:simple_weather/domain/model/province_model.dart';
@@ -12,8 +11,6 @@ import 'package:simple_weather/domain/util/service_locator.dart';
 import 'package:collection/collection.dart';
 
 class FormInteractor {
-  final _profile = sl<ProfileInteractor>();
-
   final key = GlobalKey<FormState>();
   final nameNode = FocusNode();
   final provNode = FocusNode();
@@ -26,7 +23,7 @@ class FormInteractor {
   final cities = ValueNotifier(<CityModel>[]);
 
   Future<void> init() async {
-    nameController.text = _profile.name.value;
+    nameController.text = profile.name.value;
     provinces.value = [];
     cities.value = [];
     provId.value = await cacheRead(cacheProvId) ?? '';
@@ -103,7 +100,7 @@ class FormInteractor {
           cities.value.firstWhereOrNull((item) => item.id == cityId.value) ??
               cities.value[0];
 
-      await _profile.save(ProfileModel(
+      await profile.save(ProfileModel(
         name: name,
         prov: prov,
         city: city,
