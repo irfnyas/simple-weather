@@ -47,11 +47,11 @@ class WeatherInteractor {
               : '';
 
           final isFirst = list.isEmpty;
-          final isLast = item == dataList.last;
           final isMidDay =
               list.isNotEmpty && date != list[0].date && hour == 12;
+          final isLast = item == dataList.last;
 
-          if (isFirst || isLast || isMidDay) {
+          if (isFirst || isMidDay || isLast) {
             final isSameDayAsBefore =
                 !isFirst ? date == list[list.length - 1].date : false;
             final dateText =
@@ -63,6 +63,7 @@ class WeatherInteractor {
               degrees: degrees,
               icon: 'http://openweathermap.org/img/wn/$icon.png',
             );
+
             list.add(model);
           }
         }
