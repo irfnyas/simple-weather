@@ -36,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
                       onPressed: () async =>
                           await form.submit() ? context.go(routeToday) : null),
                 ]),
-            body: Container(
+            body: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Form(
                     key: form.key,

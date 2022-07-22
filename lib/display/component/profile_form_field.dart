@@ -16,7 +16,7 @@ class ProfileFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
         padding: const EdgeInsets.only(bottom: 16),
         child: TextFormField(
             textCapitalization: TextCapitalization.characters,

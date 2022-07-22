@@ -26,7 +26,7 @@ class WeatherCard extends StatelessWidget {
     return Card(
         elevation: 0,
         color: Colors.transparent,
-        child: Container(
+        child: Padding(
             padding: const EdgeInsets.all(8),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
