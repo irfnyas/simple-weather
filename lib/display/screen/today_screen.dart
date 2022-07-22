@@ -83,7 +83,7 @@ class TodayScreen extends StatelessWidget {
 
     return WillPopScope(
         onWillPop: () async {
-          DialogManager.showExit();
+          showExitDialog();
           return false;
         },
         child: FocusDetector(

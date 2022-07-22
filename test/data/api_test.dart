@@ -2,22 +2,23 @@ import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:simple_weather/data/api.dart';
+import 'package:simple_weather/data/api.dart' as api;
 
 void main() {
   group('api test', () {
     test('get provinces', () async {
       const expectedStatusCode = 200;
 
-      final res = await Api.getProvinces();
+      final res = await api.getProvinces();
 
       expect(res?.statusCode, expectedStatusCode);
     });
 
     test('get cities', () async {
       const expectedStatusCode = 200;
+      const provIdTest = '31';
 
-      final res = await Api.getCities('31');
+      final res = await api.getCities(provIdTest);
 
       expect(res?.statusCode, expectedStatusCode);
     });
@@ -28,7 +29,7 @@ void main() {
       const latTest = '-6.9147444';
       const lngTest = '107.6098111';
 
-      final res = await Api.getForecast(latTest, lngTest);
+      final res = await api.getForecast(latTest, lngTest);
 
       expect(res?.statusCode, expectedStatusCode);
     });

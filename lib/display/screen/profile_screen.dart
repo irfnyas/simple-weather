@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
     return WillPopScope(
         onWillPop: () async {
           if (!profile.isLoggedIn.value) {
-            DialogManager.showExit();
+            showExitDialog();
           }
           return profile.isLoggedIn.value;
         },

@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:simple_weather/data/api.dart';
-import 'package:simple_weather/data/cache.dart';
+import 'package:simple_weather/data/api.dart' as api;
+import 'package:simple_weather/data/cache.dart' as cache;
 import 'package:simple_weather/domain/enum/time_enum.dart';
 import 'package:simple_weather/domain/model/weather_model.dart';
 import 'package:simple_weather/domain/util/constant.dart';
@@ -18,12 +18,12 @@ class WeatherInteractor {
   }
 
   Future<void> getForecastData() async {
-    final lat = await Cache.read(prefCityLat);
-    final lng = await Cache.read(prefCityLng);
+    final lat = await cache.read(prefCityLat);
+    final lng = await cache.read(prefCityLng);
 
     if (lat != null && lng != null) {
       final list = <WeatherModel>[];
-      final res = await Api.getForecast(lat, lng);
+      final res = await api.getForecast(lat, lng);
 
       if (res?.statusCode == 200) {
         weathers.value.clear();
@@ -73,7 +73,7 @@ class WeatherInteractor {
     }
   }
 
-  static String greetingText() {
+  String greetingText() {
     final currentHour = DateTime.now().hour;
 
     if (currentHour >= 6 && currentHour < 12) {
@@ -87,15 +87,15 @@ class WeatherInteractor {
     }
   }
 
-  static String simpleDate(String date) {
+  String simpleDate(String date) {
     return DateFormat('EEE dd').format(DateTime.parse(date)).toUpperCase();
   }
 
-  static int simpleHour(String date) {
+  int simpleHour(String date) {
     return int.tryParse(DateFormat('H').format(DateTime.parse(date))) ?? 0;
   }
 
-  static String rounded(num degrees) {
+  String rounded(num degrees) {
     return '${degrees.round()}';
   }
 }
