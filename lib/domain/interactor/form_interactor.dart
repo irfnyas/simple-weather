@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:simple_weather/data/api.dart' as api;
-import 'package:simple_weather/data/cache.dart' as cache;
+import 'package:simple_weather/data/api.dart';
+import 'package:simple_weather/data/cache.dart';
 import 'package:simple_weather/domain/interactor/profile_interactor.dart';
 import 'package:simple_weather/domain/model/city_model.dart';
 import 'package:simple_weather/domain/model/profile_model.dart';
@@ -30,15 +30,15 @@ class FormInteractor {
     nameController.text = _profile.name.value;
     provinces.value = [];
     cities.value = [];
-    provId.value = await cache.read(prefProvId) ?? '';
-    cityId.value = await cache.read(prefCityId) ?? '';
+    provId.value = await cacheRead(cacheProvId) ?? '';
+    cityId.value = await cacheRead(cacheCityId) ?? '';
     await getProvincesData();
   }
 
   Future<void> getProvincesData() async {
     final list = <ProvinceModel>[];
 
-    Response? res = await api.getProvinces();
+    Response? res = await apiGetProvinces();
     if (res?.statusCode == 200) {
       final data = jsonDecode(res?.body ?? '');
       for (final json in data) {
@@ -64,7 +64,7 @@ class FormInteractor {
   Future<void> getCitiesData(String provId) async {
     final list = <CityModel>[];
 
-    Response? res = await api.getCities(provId);
+    Response? res = await apiGetCities(provId);
     if (res?.statusCode == 200) {
       final data = jsonDecode(res?.body ?? '');
       for (final json in data) {

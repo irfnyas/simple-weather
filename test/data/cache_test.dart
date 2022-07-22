@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:simple_weather/data/cache.dart' as cache;
+import 'package:simple_weather/data/cache.dart';
 import 'package:simple_weather/domain/util/constant.dart';
 
 void main() {
@@ -10,9 +10,9 @@ void main() {
       const testValue = 'weather-for-test';
       const expectedValue = 'weather-for-test';
 
-      await cache.write(cacheTestKey, testValue);
+      await cacheWrite(cacheTestKey, testValue);
 
-      expect(await cache.read(cacheTestKey), expectedValue);
+      expect(await cacheRead(cacheTestKey), expectedValue);
     });
 
     test('set int', () async {
@@ -20,9 +20,9 @@ void main() {
       const testValue = 23;
       const expectedValue = 23;
 
-      await cache.write(cacheTestKey, testValue);
+      await cacheWrite(cacheTestKey, testValue);
 
-      expect(await cache.read(cacheTestKey), expectedValue);
+      expect(await cacheRead(cacheTestKey), expectedValue);
     });
 
     test('set double', () async {
@@ -30,9 +30,9 @@ void main() {
       const testValue = 23.4;
       const expectedValue = 23.4;
 
-      await cache.write(cacheTestKey, testValue);
+      await cacheWrite(cacheTestKey, testValue);
 
-      expect(await cache.read(cacheTestKey), expectedValue);
+      expect(await cacheRead(cacheTestKey), expectedValue);
     });
 
     test('set bool', () async {
@@ -40,9 +40,9 @@ void main() {
       const testValue = true;
       const expectedValue = true;
 
-      await cache.write(cacheTestKey, testValue);
+      await cacheWrite(cacheTestKey, testValue);
 
-      expect(await cache.read(cacheTestKey), expectedValue);
+      expect(await cacheRead(cacheTestKey), expectedValue);
     });
 
     test('set list', () async {
@@ -50,9 +50,9 @@ void main() {
       const testValue = ['weather', 23, 23.4, true];
       const expectedValue = ['weather', '23', '23.4', 'true'];
 
-      await cache.write(cacheTestKey, testValue);
+      await cacheWrite(cacheTestKey, testValue);
 
-      expect(await cache.read(cacheTestKey), expectedValue);
+      expect(await cacheRead(cacheTestKey), expectedValue);
     });
 
     test('remove', () async {
@@ -60,10 +60,10 @@ void main() {
       const testValue = 'weather-for-test';
       const expectedValue = null;
 
-      await cache.write(cacheTestKey, testValue);
-      await cache.remove(cacheTestKey);
+      await cacheWrite(cacheTestKey, testValue);
+      await cacheRemove(cacheTestKey);
 
-      expect(await cache.read(cacheTestKey), expectedValue);
+      expect(await cacheRead(cacheTestKey), expectedValue);
     });
 
     test('remove', () async {
@@ -75,17 +75,17 @@ void main() {
       const testValue2 = 'weather-for-test';
       const expectedValue2 = null;
 
-      await cache.write(cacheTestKey, testValue);
-      await cache.write(cacheTestKey2, testValue2);
-      await cache.clear();
+      await cacheWrite(cacheTestKey, testValue);
+      await cacheWrite(cacheTestKey2, testValue2);
+      await cacheClear();
 
-      expect(await cache.read(cacheTestKey), expectedValue);
-      expect(await cache.read(cacheTestKey2), expectedValue2);
+      expect(await cacheRead(cacheTestKey), expectedValue);
+      expect(await cacheRead(cacheTestKey2), expectedValue2);
     });
 
     test('isLoggedIn', () async {
-      SharedPreferences.setMockInitialValues({prefName: 'user'});
-      expect(await cache.isLoggedIn(), true);
+      SharedPreferences.setMockInitialValues({cacheName: 'user'});
+      expect(await cacheIsLoggedIn(), true);
     });
   });
 }

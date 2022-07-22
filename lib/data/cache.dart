@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_weather/domain/util/constant.dart';
 
-Future<dynamic> write(String key, dynamic value) async {
+Future<dynamic> cacheWrite(String key, dynamic value) async {
   final pref = await SharedPreferences.getInstance();
 
   if (value is int) {
@@ -19,21 +19,21 @@ Future<dynamic> write(String key, dynamic value) async {
   return value;
 }
 
-Future<dynamic>? read(String key) async {
+Future<dynamic>? cacheRead(String key) async {
   final pref = await SharedPreferences.getInstance();
   return pref.get(key);
 }
 
-Future<void> remove(String key) async {
+Future<void> cacheRemove(String key) async {
   final pref = await SharedPreferences.getInstance();
   pref.remove(key);
 }
 
-Future<void> clear() async {
+Future<void> cacheClear() async {
   final pref = await SharedPreferences.getInstance();
   pref.clear();
 }
 
-Future<bool> isLoggedIn() async {
-  return await read(prefName) != null;
+Future<bool> cacheIsLoggedIn() async {
+  return await cacheRead(cacheName) != null;
 }

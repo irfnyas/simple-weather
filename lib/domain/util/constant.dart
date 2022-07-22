@@ -1,14 +1,14 @@
 const appName = 'Simple Weather';
 
-const prefName = 'prefName';
-const prefProvId = 'prefProvId';
-const prefCityId = 'prefCityId';
-const prefCityName = 'prefCityName';
-const prefCityLat = 'prefCityLat';
-const prefCityLng = 'prefCityLng';
+const cacheName = 'cacheName';
+const cacheProvId = 'cacheProvId';
+const cacheCityId = 'cacheCityId';
+const cacheCityName = 'cacheCityName';
+const cacheCityLat = 'cacheCityLat';
+const cacheCityLng = 'cacheCityLng';
 
-const wilayahUrl = 'https://ifnyas.github.io/wilayah/api';
-const openWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast';
+const urlWilayah = 'https://ifnyas.github.io/wilayah/api';
+const urlOpenWeather = 'https://api.openweathermap.org/data/2.5/forecast';
 
 const routeToday = '/';
 const routeProfile = '/profile';
@@ -18,7 +18,6 @@ const textTimeMorning = 'GOOD MORNING';
 const textTimeAfternoon = 'GOOD AFTERNOON';
 const textTimeEvening = 'GOOD EVENING';
 const textTimeNight = 'GOOD NIGHT';
-const textExitTitle = 'Exit $appName?';
 
 const textSave = 'SAVE';
 const textBack = 'BACK';
@@ -26,6 +25,7 @@ const textExit = 'EXIT';
 const textOk = 'OK';
 const textSearch = 'SEARCH';
 
+const textExitTitle = 'Exit $appName?';
 const textLabelName = 'What should we call you?';
 const textHintName = 'e.g. MASTER WEATHER';
 const textLabelProv = 'Select Province';

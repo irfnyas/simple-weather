@@ -15,12 +15,13 @@ Future<Response?> getr(String url, Map<String, String>? queries) async {
   return res;
 }
 
-Future<Response?> getProvinces() => getr('$wilayahUrl/provinces.json', null);
+Future<Response?> apiGetProvinces() => getr('$urlWilayah/provinces.json', null);
 
-Future<Response?> getCities(String provinceId) =>
-    getr('$wilayahUrl/regencies/$provinceId.json', null);
+Future<Response?> apiGetCities(String provinceId) =>
+    getr('$urlWilayah/regencies/$provinceId.json', null);
 
-Future<Response?> getForecast(String lat, String lng) => getr(openWeatherUrl, {
+Future<Response?> apiGetForecast(String lat, String lng) =>
+    getr(urlOpenWeather, {
       'appid': dotenv.get('OPEN_WEATHER_KEY', fallback: ''),
       'lat': lat,
       'lon': lng,

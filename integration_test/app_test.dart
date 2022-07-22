@@ -2,7 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:simple_weather/data/cache.dart' as cache;
+import 'package:simple_weather/data/cache.dart';
 import 'package:simple_weather/display/component/weather_card.dart';
 import 'package:simple_weather/domain/interactor/form_interactor.dart';
 import 'package:simple_weather/domain/interactor/weather_interactor.dart';
@@ -16,7 +16,7 @@ void main() {
   group('end-to-end test', () {
     testWidgets('first time using app', (tester) async {
       // init main
-      await cache.clear();
+      await cacheClear();
       await app.main();
 
       // init interactor

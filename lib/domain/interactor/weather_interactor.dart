@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:simple_weather/data/api.dart' as api;
-import 'package:simple_weather/data/cache.dart' as cache;
+import 'package:simple_weather/data/api.dart';
+import 'package:simple_weather/data/cache.dart';
 import 'package:simple_weather/domain/enum/time_enum.dart';
 import 'package:simple_weather/domain/model/weather_model.dart';
 import 'package:simple_weather/domain/util/constant.dart';
@@ -18,12 +18,12 @@ class WeatherInteractor {
   }
 
   Future<void> getForecastData() async {
-    final lat = await cache.read(prefCityLat);
-    final lng = await cache.read(prefCityLng);
+    final lat = await cacheRead(cacheCityLat);
+    final lng = await cacheRead(cacheCityLng);
 
     if (lat != null && lng != null) {
       final list = <WeatherModel>[];
-      final res = await api.getForecast(lat, lng);
+      final res = await apiGetForecast(lat, lng);
 
       if (res?.statusCode == 200) {
         weathers.value.clear();
