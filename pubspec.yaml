@@ -43,6 +43,8 @@ dependencies:
   collection: ^1.16.0
   focus_detector:
     git: https://github.com/ifnyas/focus_detector.git
+  sentry_flutter: ^6.9.0
+  syncfusion_flutter_charts: ^20.2.40
 
 dev_dependencies:
   flutter_test:

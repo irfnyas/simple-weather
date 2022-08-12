@@ -12,19 +12,26 @@ class WeatherInteractor {
   final refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
   final greeting = ValueNotifier('');
   final weathers = ValueNotifier(<WeatherModel>[]);
+  final isCelcius = ValueNotifier(true);
 
   void init() {
     greeting.value = greetingText();
     getForecastData();
   }
 
+  Future<void> changeUnits() async {
+    isCelcius.value = !isCelcius.value;
+    getForecastData();
+  }
+
   Future<void> getForecastData() async {
     final lat = await cacheRead(cacheCityLat);
     final lng = await cacheRead(cacheCityLng);
+    final units = isCelcius.value ? 'metric' : 'imperial';
 
     if (lat != null && lng != null) {
       final list = <WeatherModel>[];
-      final res = await apiGetForecast(lat, lng);
+      final res = await apiGetForecast(lat, lng, units);
 
       if (res?.statusCode == 200) {
         weathers.value.clear();

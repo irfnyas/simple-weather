@@ -24,6 +24,8 @@ const textBack = 'BACK';
 const textExit = 'EXIT';
 const textOk = 'OK';
 const textSearch = 'SEARCH';
+const textCelcius = 'C°';
+const textFahrenheit = 'F°';
 
 const textExitTitle = 'Exit $appName?';
 const textLabelName = 'What should we call you?';

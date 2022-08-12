@@ -8,10 +8,10 @@ Future<Response?> apiGetProvinces() => getr('$urlWilayah/provinces.json');
 Future<Response?> apiGetCities(String provinceId) =>
     getr('$urlWilayah/regencies/$provinceId.json');
 
-Future<Response?> apiGetForecast(String lat, String lng) =>
+Future<Response?> apiGetForecast(String lat, String lng, String units) =>
     getr(urlOpenWeather, queries: {
       'appid': dotenv.get('OPEN_WEATHER_KEY', fallback: ''),
       'lat': lat,
       'lon': lng,
-      'units': 'metric'
+      'units': units
     });

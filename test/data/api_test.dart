@@ -28,8 +28,9 @@ void main() {
       const expectedStatusCode = 200;
       const latTest = '-6.9147444';
       const lngTest = '107.6098111';
+      const unitsTest = 'metric';
 
-      final res = await apiGetForecast(latTest, lngTest);
+      final res = await apiGetForecast(latTest, lngTest, unitsTest);
 
       expect(res?.statusCode, expectedStatusCode);
     });

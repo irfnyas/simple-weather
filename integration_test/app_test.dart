@@ -13,11 +13,11 @@ void main() {
 
   group('end-to-end test android', () {
     testWidgets('first time using app', (tester) async {
-      // init main
+      // arrange init main
       await cacheClear();
       await app.main();
 
-      // init var
+      // arrange var
       const nameInput = 'master weather';
       const provInput = 'jawa barat';
       const cityInput = 'kota bandung';
@@ -33,21 +33,21 @@ void main() {
       final listView = find.byType(ListView);
       final saveBtn = find.text(textSave);
 
-      // click save btn
+      // act click save btn then show error empty message
       await tester.pumpAndSettle();
       await tester.tap(saveBtn);
       await tester.pumpAndSettle();
       expect(form.nameNode.hasFocus, true);
       expect(errorEmptyProvField, findsOneWidget);
 
-      // set name field and click save btn
+      // act set name field then click save btn
       await tester.enterText(nameField, nameInput);
       await tester.pumpAndSettle();
       await tester.tap(saveBtn);
       await tester.pumpAndSettle();
       expect(form.nameNode.hasFocus, false);
 
-      // set prov field, search 'JAWA BARAT' and click the result tile
+      // act set prov field, search 'JAWA BARAT' then click the result tile
       await tester.tap(provField);
       await tester.pumpAndSettle();
       await tester.enterText(searchField, provInput);
@@ -56,7 +56,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text(provInput.toUpperCase()), findsOneWidget);
 
-      // set city field, drag list until 'KOTA BANDUNG' visible and click the tile
+      // act set city field, drag list until 'KOTA BANDUNG' visible then click the tile
       await tester.tap(cityField);
       await tester.pumpAndSettle();
       await tester.dragUntilVisible(
@@ -66,21 +66,31 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text(cityInput.toUpperCase()), findsOneWidget);
 
-      // click save and go to today screen
+      // act click save then go to today screen
       await tester.tap(saveBtn);
       await tester.pumpAndSettle(const Duration(seconds: 1));
       expect(find.byIcon(Icons.settings_outlined), findsOneWidget);
 
-      // ensure loading is finished
+      // assert loading is finished
       while (weather.weathers.value.isEmpty) {
         await tester.pumpAndSettle(const Duration(seconds: 1));
       }
 
-      // today screen has greeting, city text, name text and 5 forecast weather cards
+      // assert today screen has greeting, city text, name text and 5 forecast weather cards
       expect(find.text(weather.greeting.value), findsOneWidget);
       expect(find.text(cityInput.toUpperCase()), findsOneWidget);
       expect(find.text(nameInput.toUpperCase()), findsOneWidget);
       expect(find.byType(WeatherCard, skipOffstage: false), findsNWidgets(5));
+
+      // assert default degrees is celcius
+      expect(find.text(textCelcius), findsOneWidget);
+
+      // act click degrees button
+      await tester.tap(find.text(textCelcius));
+      await tester.pumpAndSettle(const Duration(seconds: 1));
+
+      // assert degrees changed to Fahrenheit
+      expect(find.text(textFahrenheit), findsOneWidget);
     });
   });
 }
