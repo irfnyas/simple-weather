@@ -5,35 +5,45 @@ import 'package:simple_weather/domain/util/constant.dart';
 
 void main() {
   group('exit dialog test', () {
-    testWidgets('dialog has an exit title, back btn and exit btn',
-        (tester) async {
-      await tester.pumpWidget(MaterialApp(
+    testWidgets(
+      'dialog has an exit title, back btn and exit btn',
+      (tester) async {
+        await tester.pumpWidget(MaterialApp(
           home: Builder(
-              builder: ((context) => MaterialButton(
+            builder: ((context) => MaterialButton(
                   onPressed: () => showDialog(
-                      context: context,
-                      builder: (_) => const ExitDialog()))))));
+                    context: context,
+                    builder: (_) => const ExitDialog(),
+                  ),
+                )),
+          ),
+        ));
 
-      final showDialogBtn = find.byType(MaterialButton);
-      await tester.tap(showDialogBtn);
-      await tester.pump();
+        final showDialogBtn = find.byType(MaterialButton);
+        await tester.tap(showDialogBtn);
+        await tester.pump();
 
-      final exitTitle = find.text(textExitTitle);
-      final exitBtn = find.text(textExit);
-      final backBtn = find.text(textBack);
+        final exitTitle = find.text(textExitTitle);
+        final exitBtn = find.text(textExit);
+        final backBtn = find.text(textBack);
 
-      expect(exitTitle, findsOneWidget);
-      expect(exitBtn, findsOneWidget);
-      expect(backBtn, findsOneWidget);
-    });
+        expect(exitTitle, findsOneWidget);
+        expect(exitBtn, findsOneWidget);
+        expect(backBtn, findsOneWidget);
+      },
+    );
 
     testWidgets('dialog is closed when back btn clicked', (tester) async {
       await tester.pumpWidget(MaterialApp(
-          home: Builder(
-              builder: ((context) => MaterialButton(
-                  onPressed: () => showDialog(
-                      context: context,
-                      builder: (_) => const ExitDialog()))))));
+        home: Builder(
+          builder: ((context) => MaterialButton(
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (_) => const ExitDialog(),
+                ),
+              )),
+        ),
+      ));
 
       final showDialogBtn = find.byType(MaterialButton);
       await tester.tap(showDialogBtn);
@@ -48,11 +58,15 @@ void main() {
 
     testWidgets('dialog is closed when outside area clicked', (tester) async {
       await tester.pumpWidget(MaterialApp(
-          home: Builder(
-              builder: ((context) => MaterialButton(
-                  onPressed: () => showDialog(
-                      context: context,
-                      builder: (_) => const ExitDialog()))))));
+        home: Builder(
+          builder: ((context) => MaterialButton(
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (_) => const ExitDialog(),
+                ),
+              )),
+        ),
+      ));
 
       final showDialogBtn = find.byType(MaterialButton);
       await tester.tap(showDialogBtn);

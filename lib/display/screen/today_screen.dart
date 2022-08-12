@@ -20,75 +20,88 @@ class TodayScreen extends StatelessWidget {
         kToolbarHeight;
 
     return FocusDetector(
-        onFocusGained: () => weather.refreshIndicatorKey.currentState?.show(),
-        child: Scaffold(
-            appBar: AppBar(
-              title: ValueListenableBuilder<String>(
-                valueListenable: profile.cityName,
-                builder: (_, value, __) {
-                  return Text(value,
-                      style: Theme.of(context).textTheme.overline);
+      onFocusGained: () => weather.refreshIndicatorKey.currentState?.show(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: ValueListenableBuilder<String>(
+            valueListenable: profile.cityName,
+            builder: (_, value, __) {
+              return Text(
+                value,
+                style: Theme.of(context).textTheme.overline,
+              );
+            },
+          ),
+          actions: [
+            IconButton(
+              onPressed: () => weather.changeUnits(),
+              icon: ValueListenableBuilder(
+                valueListenable: weather.isCelcius,
+                builder: (_, bool value, __) {
+                  return Text(
+                    value ? textCelcius : textFahrenheit,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(color: Theme.of(context).primaryColor),
+                  );
                 },
               ),
-              actions: [
-                IconButton(
-                    onPressed: () => weather.changeUnits(),
-                    icon: ValueListenableBuilder(
-                        valueListenable: weather.isCelcius,
-                        builder: (_, bool value, __) {
-                          return Text(value ? textCelcius : textFahrenheit,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(
-                                      color: Theme.of(context).primaryColor));
-                        }),
-                    color: Theme.of(context).primaryColor),
-                IconButton(
-                    onPressed: () => context.push(routeSettings),
-                    icon: const Icon(Icons.settings_outlined),
-                    color: Theme.of(context).primaryColor),
-              ],
+              color: Theme.of(context).primaryColor,
             ),
-            body: RefreshIndicator(
-                key: weather.refreshIndicatorKey,
-                onRefresh: () async => weather.init(),
-                child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(
-                        parent: AlwaysScrollableScrollPhysics()),
-                    child: SizedBox(
-                        height: bodyHeight,
-                        child: ValueListenableBuilder<List<WeatherModel>>(
-                            valueListenable: weather.weathers,
-                            builder: (_, value, __) => value.isEmpty
-                                ? const SizedBox.expand()
-                                : Column(children: [
-                                    GreetingTextWidget(
-                                        value: weather.greeting.value),
-                                    const SizedBox(height: 4),
-                                    NameTextWidget(value: profile.name.value),
-                                    const Spacer(),
-                                    DegreesText(value: value[0].degrees),
-                                    // SfCartesianChart(
-                                    //     primaryXAxis: CategoryAxis(),
-                                    //     series: <
-                                    //         LineSeries<WeatherModel, String>>[
-                                    //       LineSeries<WeatherModel, String>(
-                                    //           dataSource:
-                                    //               weather.weathers.value,
-                                    //           xValueMapper:
-                                    //               (WeatherModel weather, _) =>
-                                    //                   weather.date,
-                                    //           yValueMapper:
-                                    //               (WeatherModel weather, _) =>
-                                    //                   int.tryParse(
-                                    //                       weather.degrees) ??
-                                    //                   0)
-                                    //     ]),
-                                    const Spacer(flex: 2),
-                                    ConditionTextWidget(
-                                        value: value[0].condition),
-                                    Expanded(child: ForecastList(value: value))
-                                  ])))))));
+            IconButton(
+              onPressed: () => context.push(routeSettings),
+              icon: const Icon(Icons.settings_outlined),
+              color: Theme.of(context).primaryColor,
+            ),
+          ],
+        ),
+        body: RefreshIndicator(
+          key: weather.refreshIndicatorKey,
+          onRefresh: () async => weather.init(),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics(),
+            ),
+            child: SizedBox(
+              height: bodyHeight,
+              child: ValueListenableBuilder<List<WeatherModel>>(
+                valueListenable: weather.weathers,
+                builder: (_, value, __) => value.isEmpty
+                    ? const SizedBox.expand()
+                    : Column(children: [
+                        GreetingTextWidget(
+                          value: weather.greeting.value,
+                        ),
+                        const SizedBox(height: 4),
+                        NameTextWidget(value: profile.name.value),
+                        const Spacer(),
+                        DegreesText(value: value[0].degrees),
+                        // SfCartesianChart(
+                        //     primaryXAxis: CategoryAxis(),
+                        //     series: <
+                        //         LineSeries<WeatherModel, String>>[
+                        //       LineSeries<WeatherModel, String>(
+                        //           dataSource:
+                        //               weather.weathers.value,
+                        //           xValueMapper:
+                        //               (WeatherModel weather, _) =>
+                        //                   weather.date,
+                        //           yValueMapper:
+                        //               (WeatherModel weather, _) =>
+                        //                   int.tryParse(
+                        //                       weather.degrees) ??
+                        //                   0)
+                        //     ]),
+                        const Spacer(flex: 2),
+                        ConditionTextWidget(value: value[0].condition),
+                        Expanded(child: ForecastList(value: value)),
+                      ]),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

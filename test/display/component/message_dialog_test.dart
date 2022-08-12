@@ -10,12 +10,18 @@ void main() {
       const content = 'contentText';
 
       await tester.pumpWidget(MaterialApp(
-          home: Builder(
-              builder: ((context) => MaterialButton(
-                  onPressed: () => showDialog(
-                      context: context,
-                      builder: (_) => const MessageDialog(
-                          title: title, content: content)))))));
+        home: Builder(
+          builder: ((context) => MaterialButton(
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (_) => const MessageDialog(
+                    title: title,
+                    content: content,
+                  ),
+                ),
+              )),
+        ),
+      ));
 
       final showDialogBtn = find.byType(MaterialButton);
       await tester.tap(showDialogBtn);
@@ -32,12 +38,16 @@ void main() {
 
     testWidgets('dialog is closed when back btn clicked', (tester) async {
       await tester.pumpWidget(MaterialApp(
-          home: Builder(
-              builder: ((context) => MaterialButton(
-                  onPressed: () => showDialog(
-                      context: context,
-                      builder: (_) =>
-                          const MessageDialog(title: null, content: null)))))));
+        home: Builder(
+          builder: ((context) => MaterialButton(
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (_) =>
+                      const MessageDialog(title: null, content: null),
+                ),
+              )),
+        ),
+      ));
 
       final showDialogBtn = find.byType(MaterialButton);
       await tester.tap(showDialogBtn);
@@ -52,12 +62,16 @@ void main() {
 
     testWidgets('dialog is closed when outside area clicked', (tester) async {
       await tester.pumpWidget(MaterialApp(
-          home: Builder(
-              builder: ((context) => MaterialButton(
-                  onPressed: () => showDialog(
-                      context: context,
-                      builder: (_) =>
-                          const MessageDialog(title: null, content: null)))))));
+        home: Builder(
+          builder: ((context) => MaterialButton(
+                onPressed: () => showDialog(
+                  context: context,
+                  builder: (_) =>
+                      const MessageDialog(title: null, content: null),
+                ),
+              )),
+        ),
+      ));
 
       final showDialogBtn = find.byType(MaterialButton);
       await tester.tap(showDialogBtn);

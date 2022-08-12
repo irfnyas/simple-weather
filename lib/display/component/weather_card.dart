@@ -7,36 +7,45 @@ class WeatherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dateWidget = Text(weather.date,
-        style: Theme.of(context)
-            .textTheme
-            .subtitle2
-            ?.copyWith(fontWeight: FontWeight.normal));
+    final dateWidget = Text(
+      weather.date,
+      style: Theme.of(context)
+          .textTheme
+          .subtitle2
+          ?.copyWith(fontWeight: FontWeight.normal),
+    );
 
     final degreesWidget = Row(children: [
       Text('${weather.degrees}°', style: Theme.of(context).textTheme.headline6),
-      Image.network(weather.icon, height: 32)
+      Image.network(weather.icon, height: 32),
     ]);
 
-    final conditionWidget = Text(weather.condition,
-        maxLines: 1,
-        style: Theme.of(context).textTheme.caption?.copyWith(
-            color: Colors.grey.shade900, overflow: TextOverflow.ellipsis));
+    final conditionWidget = Text(
+      weather.condition,
+      maxLines: 1,
+      style: Theme.of(context).textTheme.caption?.copyWith(
+            color: Colors.grey.shade900,
+            overflow: TextOverflow.ellipsis,
+          ),
+    );
 
     return Card(
-        elevation: 0,
-        color: Colors.transparent,
-        child: Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  dateWidget,
-                  const Spacer(flex: 2),
-                  degreesWidget,
-                  const Spacer(),
-                  conditionWidget
-                ])));
+      elevation: 0,
+      color: Colors.transparent,
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            dateWidget,
+            const Spacer(flex: 2),
+            degreesWidget,
+            const Spacer(),
+            conditionWidget,
+          ],
+        ),
+      ),
+    );
   }
 }

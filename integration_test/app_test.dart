@@ -60,7 +60,10 @@ void main() {
       await tester.tap(cityField);
       await tester.pumpAndSettle();
       await tester.dragUntilVisible(
-          resCityTile, listView, const Offset(0, -50));
+        resCityTile,
+        listView,
+        const Offset(0, -50),
+      );
       await tester.pumpAndSettle();
       await tester.tap(resCityTile);
       await tester.pumpAndSettle();

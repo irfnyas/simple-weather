@@ -10,26 +10,32 @@ import 'package:simple_weather/domain/util/service_locator.dart';
 final router = GoRouter(
   routes: [
     GoRoute(
-        path: routeToday,
-        builder: (_, __) {
-          return WillPopScope(
-              onWillPop: () async {
-                await showExitDialog();
-                return false;
-              },
-              child: const TodayScreen());
-        }),
+      path: routeToday,
+      builder: (_, __) {
+        return WillPopScope(
+          onWillPop: () async {
+            await showExitDialog();
+
+            return false;
+          },
+          child: const TodayScreen(),
+        );
+      },
+    ),
     GoRoute(
-        path: routeSettings,
-        builder: (_, __) {
-          return WillPopScope(
-              onWillPop: () async {
-                final isLoggedIn = profile.isLoggedIn.value;
-                if (!isLoggedIn) await showExitDialog();
-                return isLoggedIn;
-              },
-              child: const SettingsScreen());
-        })
+      path: routeSettings,
+      builder: (_, __) {
+        return WillPopScope(
+          onWillPop: () async {
+            final isLoggedIn = profile.isLoggedIn.value;
+            if (!isLoggedIn) await showExitDialog();
+
+            return isLoggedIn;
+          },
+          child: const SettingsScreen(),
+        );
+      },
+    ),
   ],
   redirect: (state) {
     final isLoggedIn = profile.isLoggedIn.value;

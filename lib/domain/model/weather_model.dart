@@ -4,6 +4,10 @@ class WeatherModel {
   final String date;
   final String icon;
 
-  WeatherModel(
-      {this.degrees = '', this.condition = '', this.date = '', this.icon = ''});
+  WeatherModel({
+    this.degrees = '',
+    this.condition = '',
+    this.date = '',
+    this.icon = '',
+  });
 }

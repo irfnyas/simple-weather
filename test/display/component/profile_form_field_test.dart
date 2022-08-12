@@ -11,13 +11,17 @@ void main() {
       final fieldController = TextEditingController();
 
       await tester.pumpWidget(MaterialApp(
-          home: Scaffold(
-              body: Form(
-                  key: formKey,
-                  child: ProfileFormField(
-                      controller: fieldController,
-                      node: focusNode,
-                      label: labelText)))));
+        home: Scaffold(
+          body: Form(
+            key: formKey,
+            child: ProfileFormField(
+              controller: fieldController,
+              node: focusNode,
+              label: labelText,
+            ),
+          ),
+        ),
+      ));
 
       final isValid = formKey.currentState?.validate() ?? false;
       !isValid ? focusNode.requestFocus() : focusNode.unfocus();
@@ -35,13 +39,17 @@ void main() {
       final field = find.byType(TextFormField);
 
       await tester.pumpWidget(MaterialApp(
-          home: Scaffold(
-              body: Form(
-                  key: formKey,
-                  child: ProfileFormField(
-                      controller: fieldController,
-                      node: focusNode,
-                      label: labelText)))));
+        home: Scaffold(
+          body: Form(
+            key: formKey,
+            child: ProfileFormField(
+              controller: fieldController,
+              node: focusNode,
+              label: labelText,
+            ),
+          ),
+        ),
+      ));
 
       await tester.enterText(field, 'weather');
       await tester.pump();

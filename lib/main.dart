@@ -18,20 +18,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final primaryColor = Colors.orange.shade700;
+
     return MaterialApp.router(
-        title: appName,
-        theme: ThemeData(
-            primarySwatch: Colors.orange,
-            primaryColor: primaryColor,
-            textButtonTheme: TextButtonThemeData(
-                style: TextButton.styleFrom(primary: primaryColor)),
-            appBarTheme: AppBarTheme(
-                elevation: 0,
-                centerTitle: true,
-                backgroundColor: Colors.transparent,
-                foregroundColor: Colors.grey.shade900)),
-        routeInformationProvider: router.routeInformationProvider,
-        routeInformationParser: router.routeInformationParser,
-        routerDelegate: router.routerDelegate);
+      title: appName,
+      theme: ThemeData(
+        primarySwatch: Colors.orange,
+        primaryColor: primaryColor,
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(primary: primaryColor),
+        ),
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.grey.shade900,
+        ),
+      ),
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+    );
   }
 }

@@ -85,7 +85,7 @@ class FormInteractor {
     final isValid = key.currentState?.validate() == true;
 
     if (!isValid) {
-      nameController.text.isEmpty == true
+      nameController.text.isEmpty
           ? nameNode.requestFocus()
           : nameNode.nextFocus();
     } else {
@@ -127,6 +127,7 @@ class FormInteractor {
               cities.value[0]
           : cities.value[0];
     }
+
     return null;
   }
 

@@ -13,46 +13,56 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            automaticallyImplyLeading: profile.isLoggedIn.value,
-            actions: [
-              TextButton(
-                  child: const Text(textSave),
-                  onPressed: () async =>
-                      await form.submit() ? context.go(routeToday) : null),
-            ]),
-        body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Form(
-                key: form.key,
-                child: Column(children: [
-                  ProfileFormField(
-                      controller: form.nameController,
-                      node: form.nameNode,
-                      label: textLabelName,
-                      hint: textHintName),
-                  ValueListenableBuilder<List<ProvinceModel>>(
-                      valueListenable: form.provinces,
-                      builder: (_, value, __) {
-                        return ProfileDropdownField(
-                            list: value,
-                            labelText: textLabelProv,
-                            errorText: textErrorEmptyProv,
-                            isLoading: value.isEmpty,
-                            selectedItem: form.selectedItemProvField(),
-                            onChanged: (item) => form.onChangedProvField(item));
-                      }),
-                  ValueListenableBuilder<List<CityModel>>(
-                      valueListenable: form.cities,
-                      builder: (_, value, __) {
-                        return ProfileDropdownField(
-                            list: value,
-                            labelText: textLabelCity,
-                            errorText: textErrorEmptyCity,
-                            isLoading: value.isEmpty && form.provId.value != '',
-                            selectedItem: form.selectedItemCityField(),
-                            onChanged: (item) => form.onChangedCityField(item));
-                      })
-                ]))));
+      appBar: AppBar(
+        automaticallyImplyLeading: profile.isLoggedIn.value,
+        actions: [
+          TextButton(
+            child: const Text(textSave),
+            onPressed: () async =>
+                await form.submit() ? context.go(routeToday) : null,
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: form.key,
+          child: Column(children: [
+            ProfileFormField(
+              controller: form.nameController,
+              node: form.nameNode,
+              label: textLabelName,
+              hint: textHintName,
+            ),
+            ValueListenableBuilder<List<ProvinceModel>>(
+              valueListenable: form.provinces,
+              builder: (_, value, __) {
+                return ProfileDropdownField(
+                  list: value,
+                  labelText: textLabelProv,
+                  errorText: textErrorEmptyProv,
+                  isLoading: value.isEmpty,
+                  selectedItem: form.selectedItemProvField(),
+                  onChanged: (item) => form.onChangedProvField(item),
+                );
+              },
+            ),
+            ValueListenableBuilder<List<CityModel>>(
+              valueListenable: form.cities,
+              builder: (_, value, __) {
+                return ProfileDropdownField(
+                  list: value,
+                  labelText: textLabelCity,
+                  errorText: textErrorEmptyCity,
+                  isLoading: value.isEmpty && form.provId.value != '',
+                  selectedItem: form.selectedItemCityField(),
+                  onChanged: (item) => form.onChangedCityField(item),
+                );
+              },
+            ),
+          ]),
+        ),
+      ),
+    );
   }
 }

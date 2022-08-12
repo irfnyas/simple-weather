@@ -13,15 +13,17 @@ void main() {
       final itemToSelect = find.text('Item 1');
 
       await tester.pumpWidget(MaterialApp(
-          home: Scaffold(
-        body: ProfileDropdownField(
+        home: Scaffold(
+          body: ProfileDropdownField(
             list: list,
             labelText: '',
             errorText: '',
             isLoading: false,
             selectedItem: list[0],
-            onChanged: (item) => {}),
-      )));
+            onChanged: (item) => {},
+          ),
+        ),
+      ));
 
       await tester.tap(dropdownField);
       await tester.pumpAndSettle();
@@ -39,15 +41,17 @@ void main() {
       final searchField = find.byType(TextField);
 
       await tester.pumpWidget(MaterialApp(
-          home: Scaffold(
-        body: ProfileDropdownField(
+        home: Scaffold(
+          body: ProfileDropdownField(
             list: list,
             labelText: '',
             errorText: '',
             isLoading: false,
             selectedItem: list[0],
-            onChanged: (item) => {}),
-      )));
+            onChanged: (item) => {},
+          ),
+        ),
+      ));
 
       await tester.tap(dropdownField);
       await tester.pumpAndSettle();
@@ -67,20 +71,25 @@ void main() {
       final listView = find.byType(ListView);
 
       await tester.pumpWidget(MaterialApp(
-          home: Scaffold(
-        body: ProfileDropdownField(
+        home: Scaffold(
+          body: ProfileDropdownField(
             list: list,
             labelText: '',
             errorText: '',
             isLoading: false,
             selectedItem: list[0],
-            onChanged: (item) => {}),
-      )));
+            onChanged: (item) => {},
+          ),
+        ),
+      ));
 
       await tester.tap(dropdownField);
       await tester.pumpAndSettle();
       await tester.dragUntilVisible(
-          itemToSelect, listView, const Offset(0, -50));
+        itemToSelect,
+        listView,
+        const Offset(0, -50),
+      );
       await tester.pumpAndSettle();
       await tester.tap(itemToSelect);
       await tester.pumpAndSettle();

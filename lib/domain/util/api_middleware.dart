@@ -11,6 +11,7 @@ Future<Response?> getr(String url, {Map<String, String>? queries}) async {
   } catch (e) {
     await midError(e);
   }
+
   return res;
 }
 
@@ -23,6 +24,7 @@ Future<Response?> midCheck(Response? res) async {
       await showMessageDialog(textTitleApiError, res?.body);
       break;
   }
+
   return res;
 }
 

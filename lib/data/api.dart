@@ -13,5 +13,5 @@ Future<Response?> apiGetForecast(String lat, String lng, String units) =>
       'appid': dotenv.get('OPEN_WEATHER_KEY', fallback: ''),
       'lat': lat,
       'lon': lng,
-      'units': units
+      'units': units,
     });

@@ -21,6 +21,7 @@ Future<dynamic> cacheWrite(String key, dynamic value) async {
 
 Future<dynamic>? cacheRead(String key) async {
   final pref = await SharedPreferences.getInstance();
+
   return pref.get(key);
 }
 

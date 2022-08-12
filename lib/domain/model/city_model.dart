@@ -5,12 +5,13 @@ class CityModel {
   String lat;
   String lng;
 
-  CityModel(
-      {this.id = '',
-      this.name = '',
-      this.provinceId = '',
-      this.lat = '',
-      this.lng = ''});
+  CityModel({
+    this.id = '',
+    this.name = '',
+    this.provinceId = '',
+    this.lat = '',
+    this.lng = '',
+  });
 
   CityModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],

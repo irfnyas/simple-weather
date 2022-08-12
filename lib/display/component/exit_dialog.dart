@@ -15,7 +15,7 @@ class ExitDialog extends StatelessWidget {
       TextButton(
         onPressed: () => SystemNavigator.pop(),
         child: const Text(textExit),
-      )
+      ),
     ]);
   }
 }
